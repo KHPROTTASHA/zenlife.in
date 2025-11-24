@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard | ZenLife</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--sand);
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: var(--max);
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--green);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--green);
+            cursor: pointer;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            max-width: var(--max);
+            margin: 2rem auto;
+            width: 95%;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .patient-profile {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .patient-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .patient-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .patient-id {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--green);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, var(--green), #1e3228);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .welcome-section h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.appointments {
+            background-color: rgba(47, 74, 63, 0.1);
+            color: var(--green);
+        }
+
+        .stat-icon.reports {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .stat-icon.prescriptions {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .stat-icon.doctors {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--green);
+        }
+
+        .stat-info p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-header h2 {
+            color: var(--green);
+            font-size: 1.4rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3228;
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .btn-gold:hover {
+            background-color: #9c7749;
+        }
+
+        /* Documents Table */
+        .documents-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .documents-table th, .documents-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .documents-table th {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .documents-table tr:hover {
+            background-color: rgba(181, 139, 87, 0.05);
+        }
+
+        .doc-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .doc-type.report {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .doc-type.prescription {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .doc-type.lab {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: #9c27b0;
+        }
+
+        .doc-type.imaging {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid #ddd;
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background-color: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        /* Appointments */
+        .appointments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .appointment-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .appointment-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .appointment-info h3 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .appointment-info p {
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .appointment-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Health Summary */
+        .health-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .health-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .health-card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .health-card h3 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .health-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--green);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: var(--max);
+            margin: 0 auto;
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: var(--max);
+            margin: 2rem auto 0;
+            width: 90%;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--green);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .stats-grid, .health-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .documents-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .appointment-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .appointment-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid, .health-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-section {
+                padding: 1.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ZenLife
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="doctor-login.html">Doctor Portal</a>
+                <a href="#" class="active">Patient Portal</a>
+            </nav>
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">JD</div>
+                <span id="user-name">John Doe</span>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="patient-profile">
+                <div class="patient-avatar" id="patient-avatar">JD</div>
+                <h2 class="patient-name" id="patient-name">John Doe</h2>
+                <p class="patient-id" id="patient-id">Patient ID: P-1001</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="#"><i class="fas fa-file-medical"></i> Medical Records</a></li>
+                <li><a href="#"><i class="fas fa-prescription"></i> Prescriptions</a></li>
+                <li><a href="#"><i class="fas fa-user-md"></i> My Doctors</a></li>
+                <li><a href="#"><i class="fas fa-heartbeat"></i> Health Summary</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1 id="welcome-message">Welcome back, John</h1>
+                <p>Here's your health overview and recent medical documents</p>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon appointments">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="appointments-count">2</h3>
+                        <p>Upcoming Appointments</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon reports">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="reports-count">8</h3>
+                        <p>Medical Reports</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon prescriptions">
+                        <i class="fas fa-prescription"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="prescriptions-count">5</h3>
+                        <p>Active Prescriptions</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon doctors">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="doctors-count">3</h3>
+                        <p>My Doctors</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Health Summary Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Health Summary</h2>
+                </div>
+                <div class="health-summary">
+                    <div class="health-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h3>Blood Pressure</h3>
+                        <p id="blood-pressure">120/80 mmHg</p>
+                        <p style="color: #4caf50; font-weight: 500;">Normal</p>
+                    </div>
+                    <div class="health-card">
+                        <i class="fas fa-weight"></i>
+                        <h3>Weight</h3>
+                        <p id="patient-weight">75 kg</p>
+                        <p style="color: #4caf50; font-weight: 500;">Healthy</p>
+                    </div>
+                    <div class="health-card">
+                        <i class="fas fa-temperature-high"></i>
+                        <h3>Last Checkup</h3>
+                        <p id="last-checkup">Nov 10, 2023</p>
+                        <p style="color: #4caf50; font-weight: 500;">All Clear</p>
+                    </div>
+                    <div class="health-card">
+                        <i class="fas fa-pills"></i>
+                        <h3>Medications</h3>
+                        <p id="medications-count">2 Active</p>
+                        <p style="color: #ff9800; font-weight: 500;">Continue</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documents Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Medical Documents</h2>
+                    <button class="btn btn-gold" id="view-all-docs">
+                        <i class="fas fa-list"></i> View All
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="documents-table">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>Doctor</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documents-list">
+                            <!-- Documents will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Upcoming Appointments</h2>
+                    <button class="btn btn-primary" id="book-appointment-btn">
+                        <i class="fas fa-plus"></i> Book Appointment
+                    </button>
+                </div>
+                <div class="appointments-list" id="appointments-list">
+                    <!-- Appointments will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Download Modal -->
+    <div class="modal" id="download-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Download Document</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p id="download-message">Your document is being prepared for download...</p>
+            <div style="text-align: right; margin-top: 1.5rem;">
+                <button class="btn btn-primary" id="modal-download-btn">Download Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>ZenLife</h3>
+                <p>Comprehensive healthcare solutions for doctors and patients. Our mission is to provide exceptional medical care with compassion and innovation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="services.html">Our Services</a>
+                <a href="doctors.html">Meet Our Doctors</a>
+                <a href="appointment.html">Book Appointment</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Patient Resources</h3>
+                <a href="patient-login.html">Patient Portal</a>
+                <a href="billing.html">Billing & Insurance</a>
+                <a href="medical-records.html">Medical Records</a>
+                <a href="faq.html">FAQ</a>
+                <a href="blog.html">Health Blog</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> NewTown, KolKata</p>
+                <p><i class="fas fa-phone"></i> +91 9733449923</p>
+                <p><i class="fas fa-envelope"></i> info@zenlife.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 ZenLife. All rights reserved. | <a href="privacy.html" style="color: var(--gold);">Privacy Policy</a> | <a href="terms.html" style="color: var(--gold);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPatient = JSON.parse(sessionStorage.getItem('currentPatient'));
+            
+            if (!currentPatient) {
+                // Redirect to login if no patient is logged in
+                window.location.href = 'patient-login.html';
+                return;
+            }
+            
+            // Load patient data
+            loadPatientData(currentPatient);
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('currentPatient');
+                window.location.href = 'patient-login.html';
+            });
+
+            // Download functionality
+            setupDownloadFunctionality();
+            
+            // Book appointment button
+            document.getElementById('book-appointment-btn').addEventListener('click', function() {
+                alert('This would open the appointment booking form in a real application.');
+            });
+            
+            // View all documents
+            document.getElementById('view-all-docs').addEventListener('click', function() {
+                alert('This would show all documents in a full page view in a real application.');
+            });
+        });
+
+        function loadPatientData(patient) {
+            // Update user interface with patient data
+            document.getElementById('user-name').textContent = patient.name;
+            document.getElementById('user-avatar').textContent = getInitials(patient.name);
+            document.getElementById('patient-name').textContent = patient.name;
+            document.getElementById('patient-avatar').textContent = getInitials(patient.name);
+            document.getElementById('patient-id').textContent = `Patient ID: ${patient.id || 'P-1001'}`;
+            document.getElementById('welcome-message').textContent = `Welcome back, ${patient.name.split(' ')[0]}`;
+            
+            // Load patient-specific data
+            loadPatientDocuments(patient.email);
+            loadPatientAppointments(patient.email);
+            loadPatientStats(patient.email);
+            loadPatientHealthData(patient.email);
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+
+        function loadPatientDocuments(patientEmail) {
+            // In a real application, this would be an API call to get patient-specific documents
+            // For this demo, we'll use localStorage to simulate patient-specific data
+            
+            const allDocuments = JSON.parse(localStorage.getItem('patientDocuments') || '[]');
+            const patientDocuments = allDocuments.filter(doc => doc.patientEmail === patientEmail);
+            
+            const documentsList = document.getElementById('documents-list');
+            documentsList.innerHTML = '';
+            
+            if (patientDocuments.length === 0) {
+                documentsList.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem;">
+                            <i class="fas fa-file-medical" style="font-size: 2rem; color: var(--muted); margin-bottom: 1rem;"></i>
+                            <p>No documents available</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            patientDocuments.forEach(doc => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${doc.name}</td>
+                    <td>${doc.doctor}</td>
+                    <td><span class="doc-type ${doc.type}">${getDocumentTypeLabel(doc.type)}</span></td>
+                    <td>${doc.date}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon download-btn" title="Download" data-file="${doc.name}">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn-icon" title="View">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                documentsList.appendChild(row);
+            });
+            
+            // Update documents count
+            document.getElementById('reports-count').textContent = patientDocuments.length;
+            
+            // Re-setup download buttons for new documents
+            setupDownloadFunctionality();
+        }
+
+        function getDocumentTypeLabel(type) {
+            const typeLabels = {
+                'report': 'Report',
+                'prescription': 'Prescription',
+                'lab': 'Lab Results',
+                'imaging': 'Imaging'
+            };
+            return typeLabels[type] || 'Document';
+        }
+
+        function loadPatientAppointments(patientEmail) {
+            // In a real application, this would be an API call to get patient-specific appointments
+            const allAppointments = JSON.parse(localStorage.getItem('patientAppointments') || '[]');
+            const patientAppointments = allAppointments.filter(apt => apt.patientEmail === patientEmail);
+            
+            const appointmentsList = document.getElementById('appointments-list');
+            appointmentsList.innerHTML = '';
+            
+            if (patientAppointments.length === 0) {
+                appointmentsList.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-calendar-times" style="font-size: 2rem; color: var(--muted); margin-bottom: 1rem;"></i>
+                        <p>No upcoming appointments</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            patientAppointments.forEach(apt => {
+                const appointmentCard = document.createElement('div');
+                appointmentCard.className = 'appointment-card';
+                appointmentCard.innerHTML = `
+                    <div class="appointment-info">
+                        <h3>${apt.title}</h3>
+                        <p><i class="fas fa-user-md"></i> ${apt.doctor}</p>
+                        <p><i class="fas fa-calendar"></i> ${apt.date} | ${apt.time}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${apt.location}</p>
+                    </div>
+                    <div class="appointment-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-video"></i> Join
+                        </button>
+                        <button class="btn btn-gold">
+                            <i class="fas fa-edit"></i> Reschedule
+                        </button>
+                    </div>
+                `;
+                appointmentsList.appendChild(appointmentCard);
+            });
+            
+            // Update appointments count
+            document.getElementById('appointments-count').textContent = patientAppointments.length;
+        }
+
+        function loadPatientStats(patientEmail) {
+            // In a real application, this would calculate stats based on patient data
+            // For now, we'll use default values
+            document.getElementById('prescriptions-count').textContent = '3';
+            document.getElementById('doctors-count').textContent = '2';
+        }
+
+        function loadPatientHealthData(patientEmail) {
+            // In a real application, this would fetch patient-specific health data
+            // For now, we'll use default values
+            document.getElementById('blood-pressure').textContent = '120/80 mmHg';
+            document.getElementById('patient-weight').textContent = '75 kg';
+            document.getElementById('last-checkup').textContent = 'Nov 10, 2023';
+            document.getElementById('medications-count').textContent = '2 Active';
+        }
+
+        function setupDownloadFunctionality() {
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            const downloadModal = document.getElementById('download-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const modalDownloadBtn = document.getElementById('modal-download-btn');
+            const downloadMessage = document.getElementById('download-message');
+            let currentFile = '';
+
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentFile = btn.getAttribute('data-file');
+                    downloadMessage.textContent = `Your document "${currentFile}" is being prepared for download...`;
+                    downloadModal.style.display = 'flex';
+                });
+            });
+
+            modalDownloadBtn.addEventListener('click', () => {
+                // In a real application, this would trigger an actual file download
+                // For this demo, we'll just show a success message
+                downloadMessage.innerHTML = `<i class="fas fa-check-circle" style="color: #4caf50;"></i> Download complete! Your file "${currentFile}" has been saved.`;
+                modalDownloadBtn.textContent = 'Close';
+                modalDownloadBtn.onclick = () => {
+                    downloadModal.style.display = 'none';
+                    modalDownloadBtn.textContent = 'Download Now';
+                    modalDownloadBtn.onclick = null;
+                };
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                downloadModal.style.display = 'none';
+                modalDownloadBtn.textContent = 'Download Now';
+            });
+        }
+
+        // Initialize demo data if not exists
+        function initializeDemoData() {
+            const currentPatient = JSON.parse(sessionStorage.getItem('currentPatient'));
+            if (!currentPatient) return;
+            
+            // Demo documents
+            if (!localStorage.getItem('patientDocuments')) {
+                const demoDocuments = [
+                    {
+                        patientEmail: currentPatient.email,
+                        name: 'Cardiology Consultation Report',
+                        doctor: 'Dr. Sarah Johnson',
+                        type: 'report',
+                        date: 'Nov 15, 2023'
+                    },
+                    {
+                        patientEmail: currentPatient.email,
+                        name: 'Hypertension Medication',
+                        doctor: 'Dr. Sarah Johnson',
+                        type: 'prescription',
+                        date: 'Nov 14, 2023'
+                    },
+                    {
+                        patientEmail: currentPatient.email,
+                        name: 'Blood Test Results',
+                        doctor: 'Dr. Michael Chen',
+                        type: 'lab',
+                        date: 'Nov 12, 2023'
+                    }
+                ];
+                localStorage.setItem('patientDocuments', JSON.stringify(demoDocuments));
+            }
+            
+            // Demo appointments
+            if (!localStorage.getItem('patientAppointments')) {
+                const demoAppointments = [
+                    {
+                        patientEmail: currentPatient.email,
+                        title: 'Follow-up Consultation',
+                        doctor: 'Dr. Sarah Johnson - Cardiology',
+                        date: 'November 22, 2023',
+                        time: '10:30 AM',
+                        location: 'ZenLife Clinic, Room 205'
+                    },
+                    {
+                        patientEmail: currentPatient.email,
+                        title: 'Annual Health Checkup',
+                        doctor: 'Dr. Michael Chen - General Physician',
+                        date: 'December 5, 2023',
+                        time: '2:15 PM',
+                        location: 'ZenLife Clinic, Room 102'
+                    }
+                ];
+                localStorage.setItem('patientAppointments', JSON.stringify(demoAppointments));
+            }
+        }
+
+        // Initialize demo data when page loads
+        initializeDemoData();
+    </script>
+</body>
+</html>

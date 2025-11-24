@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vital Harmony | Complete Healthcare Solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--sand);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--green);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3228;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #9c7649;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--green);
+            color: var(--green);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--green);
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(47, 74, 63, 0.8), rgba(47, 74, 63, 0.8)), url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            padding: 5rem 2rem;
+            background-color: white;
+        }
+
+        .carousel-container {
+            max-width: var(--max);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+            align-items: center;
+            background-color: white;
+        }
+
+        .carousel-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 300px;
+            background-color: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green);
+            font-size: 1.5rem;
+        }
+
+        .carousel-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .carousel-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--green);
+        }
+
+        .carousel-content ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .carousel-content li {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background-color: var(--gold);
+        }
+
+        /* Services Section */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--green);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            background-color: var(--sand);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--gold);
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        /* Portals Section */
+        .portals {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .portals .section-title h2 {
+            color: white;
+        }
+
+        .portals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .portal-card h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .portal-card ul {
+            text-align: left;
+            margin-bottom: 2rem;
+            list-style-type: none;
+        }
+
+        .portal-card li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .portal-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--sand);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--max);
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            color: var(--green);
+        }
+
+        .author-info p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--green);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: var(--max);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            max-width: var(--max);
+            margin: 2rem auto;
+            width: 95%;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .doctor-profile, .patient-profile {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .doctor-avatar, .patient-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .doctor-name, .patient-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .doctor-specialty, .patient-id {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--green);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, var(--green), #1e3228);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .welcome-section h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.patients {
+            background-color: rgba(47, 74, 63, 0.1);
+            color: var(--green);
+        }
+
+        .stat-icon.appointments {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .stat-icon.reports {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .stat-icon.prescriptions {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--green);
+        }
+
+        .stat-info p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-header h2 {
+            color: var(--green);
+            font-size: 1.4rem;
+        }
+
+        /* Login/Register Forms */
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 3rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--green);
+            font-size: 1.8rem;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            text-align: center;
+            flex: 1;
+            font-weight: 600;
+            color: var(--muted);
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--green);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .alert {
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 700px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .modal h2 {
+            color: var(--green);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-steps:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ddd;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .step.active {
+            background-color: var(--green);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(47, 74, 63, 0.2);
+        }
+
+        .step.completed {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .step-label {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: var(--gold);
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .payment-method {
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-method:hover {
+            border-color: var(--gold);
+        }
+
+        .payment-method.selected {
+            border-color: var(--green);
+            background-color: rgba(47, 74, 63, 0.05);
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+        }
+
+        .payment-method.selected i {
+            color: var(--green);
+        }
+
+        .video-call-container {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--sand);
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #333;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .booking-details {
+            background-color: var(--sand);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .booking-details h3 {
+            color: var(--green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .booking-details h3 i {
+            color: var(--gold);
+        }
+
+        .booking-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .booking-details .label {
+            font-weight: 500;
+            color: var(--green);
+        }
+
+        .booking-ref {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--green);
+            background-color: rgba(47, 74, 63, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .validation-error {
+            color: #d9534f;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* Documents Table */
+        .documents-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .documents-table th, .documents-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .documents-table th {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .documents-table tr:hover {
+            background-color: rgba(181, 139, 87, 0.05);
+        }
+
+        .doc-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .doc-type.report {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .doc-type.prescription {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .doc-type.lab {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: #9c27b0;
+        }
+
+        .doc-type.imaging {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid #ddd;
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background-color: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        /* Upload Form */
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload:hover {
+            border-color: var(--gold);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload p {
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload span {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Patients List */
+        .patients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .patient-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .patient-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .patient-avatar-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .patient-details h3 {
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .patient-details p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .patient-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Health Summary */
+        .health-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .health-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .health-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .health-card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .health-card h3 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .health-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* Appointments */
+        .appointments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .appointment-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .appointment-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .appointment-info h3 {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .appointment-info p {
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .appointment-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .upload-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                display: none;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .quick-links {
+                order: 2;
+                margin-left: auto;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: static;
+                transform: none;
+                margin-left: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .carousel-slide {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .carousel-image {
+                width: 100%;
+                height: 250px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-navigation .btn {
+                width: 100%;
+            }
+
+            .confirmation-actions {
+                flex-direction: column;
+            }
+
+            .step-label {
+                display: none;
+            }
+
+            .form-steps {
+                justify-content: center;
+                gap: 3rem;
+            }
+
+            .services-grid, .portals-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid, .health-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .documents-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .patient-card, .appointment-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .patient-actions, .appointment-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .logo span {
+                font-size: 1.2rem;
+            }
+
+            .quick-links {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-image {
+                height: 200px;
+            }
+
+            .carousel-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid, .health-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>Vital Harmony</span>
+            </a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portals">Portals</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#" id="book-appointment-btn">Book Appointment</a></li>
+                </ul>
+            </nav>
+            <div class="quick-links">
+                <a href="patient-login.html" class="btn btn-primary">
+                    <i class="fas fa-user"></i> Patient Portal
+                </a>
+                <a href="doctor-login.html" class="btn btn-outline">
+                    <i class="fas fa-user-md"></i> Doctor Portal
+                </a>
+            </div>
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Holistic Wellness & Natural Healing</h1>
+            <p>Experience personalized homeopathic treatments, nutritional guidance, and lifestyle coaching for complete mind-body wellness.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-secondary" id="find-remedy-btn">
+                    <i class="fas fa-search"></i> Find a Remedy
+                </a>
+                <a href="#" class="btn btn-primary" id="book-appointment-hero-btn">
+                    <i class="fas fa-calendar-check"></i> Book Appointment
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Slide 1 -->
+                <div class="carousel-slide active">
+                    <div class="carousel-image">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="carousel-content">
+                        <h2>Wellness Packages Designed for You</h2>
+                        <ul>
+                            <li>A Functional Medicine approach</li>
+                            <li>Health coaching along the way</li>
+                            <li>Regular check-ins to provide accountability</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">START YOUR JOURNEY</a>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="carousel-slide">
+                    <div class="carousel-image">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="carousel-content">
+                        <h2>Personalized Nutrition Plans</h2>
+                        <ul>
+                            <li>Customized dietary recommendations</li>
+                            <li>Food sensitivity testing</li>
+                            <li>Meal planning and preparation guidance</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">EXPLORE NUTRITION</a>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="carousel-slide">
+                    <div class="carousel-image">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="carousel-content">
+                        <h2>Mind-Body Wellness Programs</h2>
+                        <ul>
+                            <li>Stress reduction techniques</li>
+                            <li>Meditation and mindfulness practices</li>
+                            <li>Sleep optimization strategies</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">DISCOVER WELLNESS</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-controls">
+                <button class="btn btn-outline" id="prev-slide">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button class="btn btn-outline" id="next-slide">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="carousel-dots" id="carousel-dots">
+                <span class="carousel-dot active" data-index="0"></span>
+                <span class="carousel-dot" data-index="1"></span>
+                <span class="carousel-dot" data-index="2"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Comprehensive wellness solutions tailored to your unique needs</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3>Homeopathy</h3>
+                <p>Personalized homeopathic treatments using natural remedies to stimulate your body's healing response.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Holistic Wellness</h3>
+                <p>Integrative approaches addressing mind, body, and spirit for complete wellness and vitality.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3>Nutrition</h3>
+                <p>Customized nutritional plans based on your health goals, preferences, and dietary requirements.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>Lifestyle Coaching</h3>
+                <p>Guidance to implement sustainable lifestyle changes that support your long-term health goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portals Section -->
+    <section class="section portals" id="portals">
+        <div class="section-title">
+            <h2>Patient & Practitioner Portals</h2>
+            <p>Secure access to your health information and practice management tools</p>
+        </div>
+        <div class="portals-grid">
+            <div class="portal-card">
+                <h3>Patient Portal</h3>
+                <ul>
+                    <li>Upcoming appointments</li>
+                    <li>Consultation history</li>
+                    <li>Digital prescriptions</li>
+                    <li>Personalized wellness plans</li>
+                    <li>Remedy refill requests</li>
+                    <li>Lab reports & diagnostic upload</li>
+                    <li>Secure messaging with your doctor</li>
+                </ul>
+                <a href="patient-login.html" class="btn btn-secondary">Access Patient Portal</a>
+            </div>
+            <div class="portal-card">
+                <h3>Doctor Portal</h3>
+                <ul>
+                    <li>Appointment management</li>
+                    <li>Patient records access</li>
+                    <li>Digital prescription tools</li>
+                    <li>Treatment notes</li>
+                    <li>Follow-up system</li>
+                    <li>Secure doctor-patient messaging</li>
+                    <li>Case management system</li>
+                </ul>
+                <a href="doctor-login.html" class="btn btn-secondary">Access Doctor Portal</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>Patient Testimonials</h2>
+            <p>Hear from those who have experienced transformative healing</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "After years of struggling with chronic fatigue, the holistic approach at Vital Harmony gave me my energy back. The personalized remedies and lifestyle changes have been life-changing."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div class="author-info">
+                        <h4>Sarah Mitchell</h4>
+                        <p>Patient since 2021</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "The nutritional guidance and homeopathic treatments have helped me manage my digestive issues without harsh medications. I feel better than I have in years!"
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JR</div>
+                    <div class="author-info">
+                        <h4>James Rodriguez</h4>
+                        <p>Patient since 2022</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "As a busy professional, the online consultations and easy portal access make it simple to prioritize my health. The practitioners are knowledgeable and truly care."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">EP</div>
+                    <div class="author-info">
+                        <h4>Elena Petrova</h4>
+                        <p>Patient since 2020</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Vital Harmony</h3>
+                <p>Your partner in holistic wellness and natural healing. We're dedicated to helping you achieve optimal health through personalized homeopathic treatments and lifestyle guidance.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#services">Our Services</a></li>
+                    <li><a href="#portals">Patient Portal</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#" id="book-appointment-footer-btn">Book Appointment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Wellness Lane, Healing City</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@vitalharmony.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-2pm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Vital Harmony. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Appointment Booking Modal -->
+    <div class="modal" id="appointment-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Book an Appointment</h2>
+            
+            <div class="form-steps">
+                <div class="step active" id="step-1">
+                    1
+                    <span class="step-label">Details</span>
+                </div>
+                <div class="step" id="step-2">
+                    2
+                    <span class="step-label">Payment</span>
+                </div>
+                <div class="step" id="step-3">
+                    3
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+            
+            <!-- Step 1: Appointment Details -->
+            <div class="form-step active" id="form-step-1">
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="appointment-type">Consultation Type</label>
+                        <select id="appointment-type" required>
+                            <option value="">Select consultation type</option>
+                            <option value="in-person">In-Person Consultation</option>
+                            <option value="online">Online Video Consultation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-date">Preferred Date</label>
+                        <input type="date" id="appointment-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-time">Preferred Time</label>
+                        <select id="appointment-time" required>
+                            <option value="">Select time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:30 AM">10:30 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:30 PM">3:30 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-name">Your Name</label>
+                        <input type="text" id="patient-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-email">Email Address</label>
+                        <input type="email" id="patient-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-phone">Phone Number</label>
+                        <input type="tel" id="patient-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-notes">Health Concerns (Optional)</label>
+                        <textarea id="appointment-notes" rows="3" placeholder="Briefly describe your health concerns"></textarea>
+                    </div>
+                </form>
+                <div class="form-navigation">
+                    <button class="btn btn-outline" id="cancel-appointment">Cancel</button>
+                    <button class="btn btn-primary" id="next-to-payment">Continue to Payment</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Payment -->
+            <div class="form-step" id="form-step-2">
+                <div class="form-group">
+                    <label>Consultation Fee: <span style="color: var(--green); font-weight: bold; font-size: 1.2rem;">$75</span></label>
+                </div>
+                <div class="form-group">
+                    <label>Select Payment Method</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="credit-card">
+                            <i class="fas fa-credit-card"></i>
+                            <div>Credit Card</div>
+                        </div>
+                        <div class="payment-method" data-method="paypal">
+                            <i class="fab fa-paypal"></i>
+                            <div>PayPal</div>
+                        </div>
+                        <div class="payment-method" data-method="google-pay">
+                            <i class="fab fa-google-pay"></i>
+                            <div>Google Pay</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="credit-card-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" placeholder="John Doe">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="text" id="card-cvv" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-navigation">
+                    <button class="btn btn-outline" id="back-to-details">Back</button>
+                    <button class="btn btn-primary" id="process-payment">Process Payment</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Confirmation -->
+            <div class="form-step" id="form-step-3">
+                <div class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Appointment Confirmed!</h3>
+                    <p>Your appointment has been successfully booked and payment processed.</p>
+                    
+                    <div class="booking-details">
+                        <h3><i class="fas fa-calendar-check"></i> Appointment Details</h3>
+                        <p><span class="label">Patient Name:</span> <span id="confirmed-patient-name">James Rodriguez</span></p>
+                        <p><span class="label">Date:</span> <span id="confirmed-date">November 15, 2023</span></p>
+                        <p><span class="label">Time:</span> <span id="confirmed-time">10:30 AM</span></p>
+                        <p><span class="label">Consultation Type:</span> <span id="confirmed-type">Online Video Consultation</span></p>
+                        <p><span class="label">Booking Reference:</span></p>
+                        <div class="booking-ref" id="booking-ref-display">VH-2023-00123</div>
+                    </div>
+                    
+                    <p>We've sent a confirmation SMS to your phone and a detailed appointment PDF to your email.</p>
+                    <p>For online consultations, use the "Consult Online" button on our website and enter your booking reference to join your video call at the scheduled time.</p>
+                    
+                    <div class="confirmation-actions">
+                        <button class="btn btn-outline" id="download-pdf">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button class="btn btn-primary" id="finish-appointment">Finish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('show');
+        });
+
+        // Modal functionality
+        const modals = document.querySelectorAll('.modal');
+        const openModalButtons = document.querySelectorAll('#book-appointment-btn, #book-appointment-hero-btn, #book-appointment-footer-btn, #find-remedy-btn');
+
+        // Open modal function
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        // Close modal function
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Add event listeners to open modal buttons
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal('appointment-modal');
+            });
+        });
+
+        // Add event listeners to close modal buttons
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                closeModal(modal.id);
+            });
+        });
+
+        // Close modal when clicking outside the modal content
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+
+        // Carousel Functionality
+        const carousel = document.getElementById('carousel');
+        const carouselDots = document.getElementById('carousel-dots');
+        const prevButton = document.getElementById('prev-slide');
+        const nextButton = document.getElementById('next-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.carousel-slide').length;
+
+        // Initialize carousel
+        function updateCarousel() {
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Next slide
+        nextButton.addEventListener('click', function() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        // Previous slide
+        prevButton.addEventListener('click', function() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        // Dot navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentSlide = parseInt(this.getAttribute('data-index'));
+                updateCarousel();
+            });
+        });
+
+        // Auto-advance carousel (optional)
+        let carouselInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }, 5000);
+
+        // Pause auto-advance on hover
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }, 5000);
+        });
+
+        // Appointment Booking Flow
+        const steps = document.querySelectorAll('.step');
+        const formSteps = document.querySelectorAll('.form-step');
+        let currentStep = 1;
+        let appointmentData = {};
+        
+        function updateSteps() {
+            steps.forEach((step, index) => {
+                if (index + 1 < currentStep) {
+                    step.classList.remove('active');
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+            
+            formSteps.forEach((step, index) => {
+                if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        document.getElementById('next-to-payment').addEventListener('click', function() {
+            // Validate form
+            const form = document.getElementById('appointment-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // Store appointment data
+            appointmentData = {
+                type: document.getElementById('appointment-type').value,
+                date: document.getElementById('appointment-date').value,
+                time: document.getElementById('appointment-time').value,
+                name: document.getElementById('patient-name').value,
+                email: document.getElementById('patient-email').value,
+                phone: document.getElementById('patient-phone').value,
+                notes: document.getElementById('appointment-notes').value
+            };
+            
+            currentStep = 2;
+            updateSteps();
+        });
+        
+        document.getElementById('back-to-details').addEventListener('click', function() {
+            currentStep = 1;
+            updateSteps();
+        });
+        
+        document.getElementById('cancel-appointment').addEventListener('click', function() {
+            closeModal('appointment-modal');
+            resetAppointmentForm();
+        });
+        
+        document.getElementById('finish-appointment').addEventListener('click', function() {
+            closeModal('appointment-modal');
+            resetAppointmentForm();
+        });
+        
+        // Payment method selection
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Show appropriate payment form
+                const methodType = this.getAttribute('data-method');
+                document.getElementById('credit-card-form').style.display = 
+                    methodType === 'credit-card' ? 'block' : 'none';
+            });
+        });
+        
+        // Process payment
+        document.getElementById('process-payment').addEventListener('click', function() {
+            const selectedMethod = document.querySelector('.payment-method.selected');
+            if (!selectedMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            // Simulate payment processing
+            setTimeout(function() {
+                // Generate booking reference
+                const bookingRef = 'VH-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 90000);
+                
+                // Set confirmation details
+                const appointmentDate = new Date(appointmentData.date);
+                document.getElementById('confirmed-patient-name').textContent = appointmentData.name;
+                document.getElementById('confirmed-date').textContent = appointmentDate.toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
+                document.getElementById('confirmed-time').textContent = appointmentData.time;
+                document.getElementById('confirmed-type').textContent = 
+                    appointmentData.type === 'in-person' ? 'In-Person Consultation' : 'Online Video Consultation';
+                document.getElementById('booking-ref-display').textContent = bookingRef;
+                
+                // Store booking reference
+                appointmentData.bookingRef = bookingRef;
+                
+                // Move to confirmation step
+                currentStep = 3;
+                updateSteps();
+            }, 1500);
+        });
+        
+        function resetAppointmentForm() {
+            document.getElementById('appointment-form').reset();
+            currentStep = 1;
+            updateSteps();
+            
+            // Reset payment method selection
+            paymentMethods.forEach(m => m.classList.remove('selected'));
+            document.getElementById('credit-card-form').style.display = 'none';
+            appointmentData = {};
+        }
+        
+        // PDF Download Functionality
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            generatePDF();
+        });
+        
+        function generatePDF() {
+            // Using jsPDF library to generate PDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Add logo and header
+            doc.setFillColor(47, 74, 63);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.text('Vital Harmony', 105, 20, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('Holistic Wellness & Natural Healing', 105, 28, { align: 'center' });
+            
+            // Add title
+            doc.setTextColor(47, 74, 63);
+            doc.setFontSize(18);
+            doc.text('Appointment Confirmation', 105, 55, { align: 'center' });
+            
+            // Add appointment details
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Patient Name: ${appointmentData.name}`, 20, 75);
+            doc.text(`Appointment Date: ${new Date(appointmentData.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, 20, 85);
+            doc.text(`Appointment Time: ${appointmentData.time}`, 20, 95);
+            doc.text(`Consultation Type: ${appointmentData.type === 'in-person' ? 'In-Person Consultation' : 'Online Video Consultation'}`, 20, 105);
+            doc.text(`Booking Reference: ${appointmentData.bookingRef}`, 20, 115);
+            
+            // Add footer
+            doc.setFontSize(10);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Thank you for choosing Vital Harmony for your wellness journey.', 105, 190, { align: 'center' });
+            doc.text('For any questions, please contact us at info@vitalharmony.com or (555) 123-4567', 105, 200, { align: 'center' });
+            
+            // Save the PDF
+            doc.save(`VitalHarmony-Appointment-${appointmentData.bookingRef}.pdf`);
+        }
+    </script>
+</body>
+</html>

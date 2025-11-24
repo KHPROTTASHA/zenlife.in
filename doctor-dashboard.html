@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard | ZenLife</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--sand);
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: var(--max);
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--green);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--green);
+            cursor: pointer;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            max-width: var(--max);
+            margin: 2rem auto;
+            width: 95%;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .doctor-profile {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .doctor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .doctor-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .doctor-specialty {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--green);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, var(--green), #1e3228);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .welcome-section h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.patients {
+            background-color: rgba(47, 74, 63, 0.1);
+            color: var(--green);
+        }
+
+        .stat-icon.appointments {
+            background-color: rgba(181, 139, 87, 0.1);
+            color: var(--gold);
+        }
+
+        .stat-icon.reports {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .stat-icon.prescriptions {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--green);
+        }
+
+        .stat-info p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-header h2 {
+            color: var(--green);
+            font-size: 1.4rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3228;
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .btn-gold:hover {
+            background-color: #9c7749;
+        }
+
+        /* Upload Form */
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload:hover {
+            border-color: var(--gold);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload p {
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload span {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Documents Table */
+        .documents-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .documents-table th, .documents-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .documents-table th {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .documents-table tr:hover {
+            background-color: rgba(181, 139, 87, 0.05);
+        }
+
+        .doc-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .doc-type.report {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .doc-type.prescription {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .doc-type.lab {
+            background-color: rgba(156, 39, 176, 0.1);
+            color: #9c27b0;
+        }
+
+        .doc-type.imaging {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: 1px solid #ddd;
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background-color: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        /* Patients List */
+        .patients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .patient-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .patient-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .patient-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .patient-details h3 {
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .patient-details p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .patient-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--green);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: var(--max);
+            margin: 0 auto;
+            width: 90%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: var(--max);
+            margin: 2rem auto 0;
+            width: 90%;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--green);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .upload-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .documents-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .patient-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .patient-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-section {
+                padding: 1.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heartbeat"></i> ZenLife
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#" class="active">Doctor Portal</a>
+                <a href="patient-login.html">Patient Portal</a>
+            </nav>
+            <div class="user-info">
+                <div class="user-avatar" id="user-avatar">DR</div>
+                <span id="user-name">Doctor</span>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="doctor-profile">
+                <div class="doctor-avatar" id="doctor-avatar">DR</div>
+                <h2 class="doctor-name" id="doctor-name">Doctor</h2>
+                <p class="doctor-specialty" id="doctor-specialty">Specialty</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-user-injured"></i> My Patients</a></li>
+                <li><a href="#"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                <li><a href="#"><i class="fas fa-file-medical"></i> Medical Reports</a></li>
+                <li><a href="#"><i class="fas fa-prescription"></i> Prescriptions</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1 id="welcome-message">Welcome back, Doctor</h1>
+                <p>Here's an overview of your practice today</p>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon patients">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="patients-count">0</h3>
+                        <p>Total Patients</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon appointments">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="appointments-count">0</h3>
+                        <p>Appointments Today</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon reports">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="reports-count">0</h3>
+                        <p>Reports This Month</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon prescriptions">
+                        <i class="fas fa-prescription"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="prescriptions-count">0</h3>
+                        <p>Prescriptions Today</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Documents Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Upload Patient Documents</h2>
+                </div>
+                <form id="upload-form" class="upload-form">
+                    <div class="form-group">
+                        <label for="patient-select">Select Patient</label>
+                        <select id="patient-select" required>
+                            <option value="">Choose a patient</option>
+                            <!-- Patients will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-type">Document Type</label>
+                        <select id="document-type" required>
+                            <option value="">Select type</option>
+                            <option value="report">Medical Report</option>
+                            <option value="prescription">Prescription</option>
+                            <option value="lab">Lab Results</option>
+                            <option value="imaging">Imaging Report</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-title">Document Title</label>
+                        <input type="text" id="document-title" placeholder="e.g., Blood Test Results" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-date">Date</label>
+                        <input type="date" id="document-date" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="document-notes">Notes (Optional)</label>
+                        <textarea id="document-notes" placeholder="Add any additional notes about this document"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <div class="file-upload" id="file-upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop your file here</p>
+                            <span>or click to browse</span>
+                            <input type="file" id="file-input" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Upload Document
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Recent Documents Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Recent Documents</h2>
+                    <button class="btn btn-gold" id="view-all-docs">
+                        <i class="fas fa-list"></i> View All
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="documents-table">
+                        <thead>
+                            <tr>
+                                <th>Document Name</th>
+                                <th>Patient</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="documents-list">
+                            <!-- Documents will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- My Patients Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>My Patients</h2>
+                    <button class="btn btn-primary" id="add-patient-btn">
+                        <i class="fas fa-plus"></i> Add Patient
+                    </button>
+                </div>
+                <div class="patients-list" id="patients-list">
+                    <!-- Patients will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Document Uploaded Successfully</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>The document has been uploaded and is now available to the patient.</p>
+            <div style="text-align: right; margin-top: 1.5rem;">
+                <button class="btn btn-primary" id="modal-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>ZenLife</h3>
+                <p>Comprehensive healthcare solutions for doctors and patients. Our mission is to provide exceptional medical care with compassion and innovation.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="services.html">Our Services</a>
+                <a href="doctors.html">Meet Our Doctors</a>
+                <a href="appointment.html">Book Appointment</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Doctor Resources</h3>
+                <a href="doctor-login.html">Doctor Portal</a>
+                <a href="schedule.html">Schedule Management</a>
+                <a href="patient-records.html">Patient Records</a>
+                <a href="medical-library.html">Medical Library</a>
+                <a href="blog.html">Health Blog</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> NewTown, KolKata</p>
+                <p><i class="fas fa-phone"></i> +91 9733449923</p>
+                <p><i class="fas fa-envelope"></i> info@zenlife.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 ZenLife. All rights reserved. | <a href="privacy.html" style="color: var(--gold);">Privacy Policy</a> | <a href="terms.html" style="color: var(--gold);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if doctor is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to get the current doctor from sessionStorage
+            let currentDoctor = null;
+            try {
+                const doctorData = sessionStorage.getItem('currentDoctor');
+                if (doctorData) {
+                    currentDoctor = JSON.parse(doctorData);
+                }
+            } catch (e) {
+                console.error('Error parsing doctor data from sessionStorage:', e);
+            }
+            
+            if (!currentDoctor) {
+                // Try to get from localStorage as fallback
+                try {
+                    const doctors = JSON.parse(localStorage.getItem('doctors') || '[]');
+                    if (doctors.length > 0) {
+                        currentDoctor = doctors[0]; // Use the first doctor as fallback
+                        sessionStorage.setItem('currentDoctor', JSON.stringify(currentDoctor));
+                    }
+                } catch (e) {
+                    console.error('Error getting doctor data from localStorage:', e);
+                }
+                
+                // If still no doctor, redirect to login
+                if (!currentDoctor) {
+                    window.location.href = 'doctor-login.html';
+                    return;
+                }
+            }
+            
+            // Load doctor data
+            loadDoctorData(currentDoctor);
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('currentDoctor');
+                window.location.href = 'doctor-login.html';
+            });
+
+            // File upload functionality
+            setupFileUpload();
+            
+            // Form submission
+            setupFormSubmission();
+            
+            // View all documents
+            document.getElementById('view-all-docs').addEventListener('click', function() {
+                alert('This would show all documents in a full page view in a real application.');
+            });
+            
+            // Add patient button
+            document.getElementById('add-patient-btn').addEventListener('click', function() {
+                alert('This would open the add patient form in a real application.');
+            });
+            
+            // Set today's date as default for the date field
+            document.getElementById('document-date').valueAsDate = new Date();
+            
+            // Initialize demo data
+            initializeDemoData(currentDoctor);
+        });
+
+        function loadDoctorData(doctor) {
+            console.log('Loading doctor data:', doctor);
+            
+            // Update user interface with doctor data
+            if (doctor.name) {
+                document.getElementById('user-name').textContent = doctor.name;
+                document.getElementById('user-avatar').textContent = getInitials(doctor.name);
+                document.getElementById('doctor-name').textContent = doctor.name;
+                document.getElementById('doctor-avatar').textContent = getInitials(doctor.name);
+                
+                // For welcome message, use first name only
+                const firstName = doctor.name.split(' ')[0];
+                document.getElementById('welcome-message').textContent = `Welcome back, ${firstName}`;
+            }
+            
+            if (doctor.specialty) {
+                document.getElementById('doctor-specialty').textContent = doctor.specialty;
+            }
+            
+            // Load doctor-specific data
+            if (doctor.email) {
+                loadDoctorPatients(doctor.email);
+                loadDoctorDocuments(doctor.email);
+                loadDoctorStats(doctor.email);
+            }
+        }
+
+        function getInitials(name) {
+            if (!name) return 'DR';
+            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+        }
+
+        function loadDoctorPatients(doctorEmail) {
+            // In a real application, this would be an API call to get doctor-specific patients
+            const allPatients = JSON.parse(localStorage.getItem('doctorPatients') || '[]');
+            const doctorPatients = allPatients.filter(patient => patient.doctorEmail === doctorEmail);
+            
+            const patientsList = document.getElementById('patients-list');
+            const patientSelect = document.getElementById('patient-select');
+            
+            patientsList.innerHTML = '';
+            patientSelect.innerHTML = '<option value="">Choose a patient</option>';
+            
+            if (doctorPatients.length === 0) {
+                patientsList.innerHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-user-injured" style="font-size: 2rem; color: var(--muted); margin-bottom: 1rem;"></i>
+                        <p>No patients assigned to you</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            doctorPatients.forEach(patient => {
+                // Add to patients list
+                const patientCard = document.createElement('div');
+                patientCard.className = 'patient-card';
+                patientCard.innerHTML = `
+                    <div class="patient-info">
+                        <div class="patient-avatar">${getInitials(patient.name)}</div>
+                        <div class="patient-details">
+                            <h3>${patient.name}</h3>
+                            <p>Patient ID: ${patient.id} | Last Visit: ${patient.lastVisit}</p>
+                        </div>
+                    </div>
+                    <div class="patient-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-gold">
+                            <i class="fas fa-notes-medical"></i> Records
+                        </button>
+                    </div>
+                `;
+                patientsList.appendChild(patientCard);
+                
+                // Add to patient select dropdown
+                const option = document.createElement('option');
+                option.value = patient.id;
+                option.textContent = `${patient.name} (ID: ${patient.id})`;
+                patientSelect.appendChild(option);
+            });
+            
+            // Update patients count
+            document.getElementById('patients-count').textContent = doctorPatients.length;
+        }
+
+        function loadDoctorDocuments(doctorEmail) {
+            // In a real application, this would be an API call to get doctor-specific documents
+            const allDocuments = JSON.parse(localStorage.getItem('doctorDocuments') || '[]');
+            const doctorDocuments = allDocuments.filter(doc => doc.doctorEmail === doctorEmail);
+            
+            const documentsList = document.getElementById('documents-list');
+            documentsList.innerHTML = '';
+            
+            if (doctorDocuments.length === 0) {
+                documentsList.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem;">
+                            <i class="fas fa-file-medical" style="font-size: 2rem; color: var(--muted); margin-bottom: 1rem;"></i>
+                            <p>No documents uploaded yet</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            doctorDocuments.forEach(doc => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${doc.name}</td>
+                    <td>${doc.patientName}</td>
+                    <td><span class="doc-type ${doc.type}">${getDocumentTypeLabel(doc.type)}</span></td>
+                    <td>${doc.date}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon download-btn" title="Download" data-file="${doc.name}">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="btn-icon" title="Share">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="btn-icon" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                documentsList.appendChild(row);
+            });
+            
+            // Update documents count
+            document.getElementById('reports-count').textContent = doctorDocuments.length;
+        }
+
+        function getDocumentTypeLabel(type) {
+            const typeLabels = {
+                'report': 'Report',
+                'prescription': 'Prescription',
+                'lab': 'Lab Results',
+                'imaging': 'Imaging'
+            };
+            return typeLabels[type] || 'Document';
+        }
+
+        function loadDoctorStats(doctorEmail) {
+            // In a real application, this would calculate stats based on doctor data
+            // For now, we'll use default values
+            document.getElementById('appointments-count').textContent = '8';
+            document.getElementById('prescriptions-count').textContent = '18';
+        }
+
+        function setupFileUpload() {
+            const fileUploadArea = document.getElementById('file-upload-area');
+            const fileInput = document.getElementById('file-input');
+
+            fileUploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = 'var(--gold)';
+                fileUploadArea.style.backgroundColor = 'rgba(181, 139, 87, 0.05)';
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = 'transparent';
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.style.borderColor = '#ddd';
+                fileUploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    updateFileUploadText(e.dataTransfer.files[0].name);
+                }
+            });
+
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    updateFileUploadText(fileInput.files[0].name);
+                }
+            });
+        }
+
+        function updateFileUploadText(fileName) {
+            const uploadText = fileUploadArea.querySelector('p');
+            const uploadSubtext = fileUploadArea.querySelector('span');
+            
+            uploadText.textContent = fileName;
+            uploadSubtext.textContent = 'Click to change file';
+        }
+
+        function setupFormSubmission() {
+            const uploadForm = document.getElementById('upload-form');
+            const successModal = document.getElementById('success-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const modalOkBtn = document.getElementById('modal-ok-btn');
+
+            uploadForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const currentDoctor = JSON.parse(sessionStorage.getItem('currentDoctor'));
+                const patientSelect = document.getElementById('patient-select');
+                const selectedPatientId = patientSelect.value;
+                const selectedPatientText = patientSelect.options[patientSelect.selectedIndex].text;
+                
+                if (!selectedPatientId) {
+                    alert('Please select a patient');
+                    return;
+                }
+                
+                // In a real application, you would upload the file to a server here
+                // For this demo, we'll just show the success modal
+                successModal.style.display = 'flex';
+                
+                // Save the document to localStorage
+                const documentData = {
+                    doctorEmail: currentDoctor.email,
+                    doctorName: currentDoctor.name,
+                    patientId: selectedPatientId,
+                    patientName: selectedPatientText.split(' (ID:')[0],
+                    name: document.getElementById('document-title').value,
+                    type: document.getElementById('document-type').value,
+                    date: document.getElementById('document-date').value,
+                    notes: document.getElementById('document-notes').value
+                };
+                
+                const allDocuments = JSON.parse(localStorage.getItem('doctorDocuments') || '[]');
+                allDocuments.push(documentData);
+                localStorage.setItem('doctorDocuments', JSON.stringify(allDocuments));
+                
+                // Also save to patient documents for the patient dashboard
+                const allPatientDocuments = JSON.parse(localStorage.getItem('patientDocuments') || '[]');
+                allPatientDocuments.push({
+                    patientEmail: getPatientEmailById(selectedPatientId),
+                    name: document.getElementById('document-title').value,
+                    doctor: currentDoctor.name,
+                    type: document.getElementById('document-type').value,
+                    date: document.getElementById('document-date').value
+                });
+                localStorage.setItem('patientDocuments', JSON.stringify(allPatientDocuments));
+                
+                // Reset form
+                uploadForm.reset();
+                
+                // Reset file upload area text
+                const uploadText = fileUploadArea.querySelector('p');
+                const uploadSubtext = fileUploadArea.querySelector('span');
+                uploadText.textContent = 'Drag & drop your file here';
+                uploadSubtext.textContent = 'or click to browse';
+                
+                // Reload documents list
+                loadDoctorDocuments(currentDoctor.email);
+            });
+
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                successModal.style.display = 'none';
+            });
+
+            modalOkBtn.addEventListener('click', () => {
+                successModal.style.display = 'none';
+            });
+        }
+
+        function getPatientEmailById(patientId) {
+            // In a real application, this would be an API call
+            const allPatients = JSON.parse(localStorage.getItem('patients') || '[]');
+            const patient = allPatients.find(p => p.id === patientId);
+            return patient ? patient.email : 'unknown@example.com';
+        }
+
+        // Initialize demo data if not exists
+        function initializeDemoData(currentDoctor) {
+            // Demo patients for this doctor
+            if (!localStorage.getItem('doctorPatients')) {
+                const demoPatients = [
+                    {
+                        doctorEmail: currentDoctor.email,
+                        id: 'P-1001',
+                        name: 'John Doe',
+                        lastVisit: 'Nov 15, 2023'
+                    },
+                    {
+                        doctorEmail: currentDoctor.email,
+                        id: 'P-1002',
+                        name: 'Jane Smith',
+                        lastVisit: 'Nov 14, 2023'
+                    },
+                    {
+                        doctorEmail: currentDoctor.email,
+                        id: 'P-1003',
+                        name: 'Robert Brown',
+                        lastVisit: 'Nov 12, 2023'
+                    },
+                    {
+                        doctorEmail: currentDoctor.email,
+                        id: 'P-1004',
+                        name: 'Emily Wilson',
+                        lastVisit: 'Nov 10, 2023'
+                    }
+                ];
+                localStorage.setItem('doctorPatients', JSON.stringify(demoPatients));
+            }
+            
+            // Demo documents for this doctor
+            if (!localStorage.getItem('doctorDocuments')) {
+                const demoDocuments = [
+                    {
+                        doctorEmail: currentDoctor.email,
+                        doctorName: currentDoctor.name,
+                        patientId: 'P-1001',
+                        patientName: 'John Doe',
+                        name: 'Cardiology Consultation Report',
+                        type: 'report',
+                        date: 'Nov 15, 2023',
+                        notes: 'Patient shows improvement in cardiac function.'
+                    },
+                    {
+                        doctorEmail: currentDoctor.email,
+                        doctorName: currentDoctor.name,
+                        patientId: 'P-1002',
+                        patientName: 'Jane Smith',
+                        name: 'Hypertension Medication',
+                        type: 'prescription',
+                        date: 'Nov 14, 2023',
+                        notes: 'Prescribed medication for blood pressure control.'
+                    }
+                ];
+                localStorage.setItem('doctorDocuments', JSON.stringify(demoDocuments));
+            }
+            
+            // Ensure demo doctor data exists
+            if (!localStorage.getItem('doctors')) {
+                const demoDoctors = [
+                    { 
+                        name: 'Dr. Sarah Johnson', 
+                        email: 'doctor@zenlife.com', 
+                        phone: '123-456-7890', 
+                        specialty: 'Cardiology', 
+                        license: 'MD123456', 
+                        password: 'd' 
+                    }
+                ];
+                localStorage.setItem('doctors', JSON.stringify(demoDoctors));
+            }
+        }
+    </script>
+</body>
+</html>
