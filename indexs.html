@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenLife Pro - Hospital Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --green: #2f4a3f;
+            --gold: #b58b57;
+            --sand: #f9f7f4;
+            --light: #f9f7f4;
+            --muted: #777;
+            --transition: all 0.3s ease;
+            --max: 1200px;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--sand);
+            color: #333;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--green);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--green) 0%, #3a5c4d 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .feature-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 30px;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: white;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, var(--gold), #d4af37);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .dashboard-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            border: none;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .dashboard-card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .dashboard-icon {
+            font-size: 2rem;
+            color: var(--gold);
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-confirmed {
+            background-color: rgba(47, 74, 63, 0.2);
+            color: var(--green);
+        }
+        
+        .status-pending {
+            background-color: rgba(181, 139, 87, 0.2);
+            color: var(--gold);
+        }
+        
+        .status-completed {
+            background-color: rgba(119, 119, 119, 0.2);
+            color: var(--muted);
+        }
+        
+        .btn-primary {
+            background-color: var(--green);
+            border-color: var(--green);
+        }
+        
+        .btn-primary:hover {
+            background-color: #253a30;
+            border-color: #253a30;
+        }
+        
+        .btn-secondary {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #a07d4c;
+            border-color: #a07d4c;
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--gold);
+        }
+        
+        footer {
+            background-color: var(--green);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            background-color: white;
+        }
+        
+        .dashboard-container {
+            padding: 30px 0;
+        }
+        
+        .sidebar {
+            background-color: var(--green);
+            color: white;
+            min-height: calc(100vh - 56px);
+            padding-top: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin-bottom: 5px;
+            transition: var(--transition);
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            padding: 20px;
+            background-color: var(--sand);
+        }
+        
+        .table-responsive {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .vip-card {
+            background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+            border-radius: 15px;
+            color: #333;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vip-card:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+        }
+        
+        .vip-badge {
+            background-color: var(--green);
+            color: var(--gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .token-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--green);
+        }
+        
+        .video-call-btn {
+            background: linear-gradient(135deg, var(--green) 0%, #3a5c4d 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 25px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(47, 74, 63, 0.4);
+        }
+        
+        .analytics-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .analytics-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--green);
+        }
+        
+        .analytics-label {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        .patient-id-display {
+            background-color: var(--gold);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .document-card {
+            border-left: 4px solid var(--gold);
+            background-color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .booking-step {
+            display: none;
+        }
+        
+        .booking-step.active {
+            display: block;
+        }
+        
+        .doctor-card {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .doctor-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 10px rgba(181, 139, 87, 0.2);
+        }
+        
+        .doctor-card.selected {
+            border-color: var(--gold);
+            background-color: rgba(181, 139, 87, 0.1);
+        }
+        
+        .time-slot {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .time-slot:hover {
+            border-color: var(--gold);
+        }
+        
+        .time-slot.selected {
+            background-color: var(--gold);
+            color: white;
+            border-color: var(--gold);
+        }
+        
+        .payment-option {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--gold);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--gold);
+            background-color: rgba(181, 139, 87, 0.1);
+        }
+        
+        .prescription-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+        
+        .lab-report-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background-color: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--green);
+        }
+        
+        .card-header {
+            background-color: var(--green) !important;
+            color: white;
+        }
+        
+        .table th {
+            background-color: var(--green);
+            color: white;
+        }
+        
+        .modal-header {
+            background-color: var(--green);
+            color: white;
+        }
+        
+        .progress-bar {
+            background-color: var(--gold);
+        }
+        
+        .form-control:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 0.2rem rgba(181, 139, 87, 0.25);
+        }
+        
+        .form-select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 0.2rem rgba(181, 139, 87, 0.25);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--gold);
+            border-color: var(--gold);
+        }
+        
+        .alert-info {
+            background-color: rgba(181, 139, 87, 0.1);
+            border-color: var(--gold);
+            color: var(--green);
+        }
+        
+        .list-group-item.active {
+            background-color: var(--green);
+            border-color: var(--green);
+        }
+        
+        /* Custom styling for the new color scheme */
+        .text-primary {
+            color: var(--green) !important;
+        }
+        
+        .text-secondary {
+            color: var(--gold) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--green) !important;
+        }
+        
+        .bg-secondary {
+            background-color: var(--gold) !important;
+        }
+        
+        .border-primary {
+            border-color: var(--green) !important;
+        }
+        
+        .border-secondary {
+            border-color: var(--gold) !important;
+        }
+        
+        .btn-outline-primary {
+            color: var(--green);
+            border-color: var(--green);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+        
+        .btn-outline-secondary {
+            color: var(--gold);
+            border-color: var(--gold);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#" id="homeLink">
+                <i class="fas fa-hospital-alt me-2"></i>ZenLife Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#premium">Premium</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="loginNavLink">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="#" id="registerNavLink">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4">Advanced Hospital Management System</h1>
+                        <p class="lead mb-4">Streamline patient registration, doctor appointments, medical records, and more with our comprehensive healthcare solution.</p>
+                        <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                            <a href="#" class="btn btn-light btn-lg" id="registerHeroLink">Get Started</a>
+                            <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <img src="doctor-1.png" alt="Healthcare" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-5">
+            <div class="container">
+                <h2 class="section-title">System Features</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="patientRegistrationFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h4 class="card-title">Patient Registration</h4>
+                                <p class="card-text">Register patients using NID card or passport. Generate unique Patient ID containing all information.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="doctorBookingFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <h4 class="card-title">Doctor Booking</h4>
+                                <p class="card-text">Book appointments with available doctors. View doctor schedules and select preferred time slots.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="paymentFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </div>
+                                <h4 class="card-title">Secure Payments</h4>
+                                <p class="card-text">Integrated payment system with booking reference generation and PDF receipts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="patientDashboardFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <h4 class="card-title">Patient Dashboard</h4>
+                                <p class="card-text">Access medical history, lab reports, prescriptions, and appointment history in one place.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="doctorDashboardFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <h4 class="card-title">Doctor Dashboard</h4>
+                                <p class="card-text">Manage appointments, view patient history, and upload prescriptions and reports.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card feature-card h-100" id="labIntegrationFeature">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-vial"></i>
+                                </div>
+                                <h4 class="card-title">Lab Integration</h4>
+                                <p class="card-text">Upload and manage lab reports linked to patient IDs for easy access by doctors and patients.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Features Section -->
+        <section id="premium" class="py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title">Premium Features</h2>
+                <p class="text-center mb-5">Upgrade to our premium plan for enhanced healthcare management capabilities.</p>
+                
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <h4 class="card-title">WhatsApp/SMS Reminders</h4>
+                                <p class="card-text">Automated appointment reminders sent directly to patients via WhatsApp or SMS.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <h4 class="card-title">Telemedicine Video Calls</h4>
+                                <p class="card-text">Secure video consultation platform integrated directly into the system.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <h4 class="card-title">VIP Membership</h4>
+                                <p class="card-text">Exclusive subscription plans with priority booking and premium services.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-list-ol"></i>
+                                </div>
+                                <h4 class="card-title">Queue Management</h4>
+                                <p class="card-text">Digital token system for efficient patient flow management.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h4 class="card-title">Analytics Dashboard</h4>
+                                <p class="card-text">Comprehensive analytics and reporting for hospital administration.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card feature-card h-100 position-relative">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon">
+                                    <i class="fas fa-code-branch"></i>
+                                </div>
+                                <h4 class="card-title">Multi-Branch Support</h4>
+                                <p class="card-text">Manage multiple hospital branches from a single centralized system.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Patient Dashboard (Initially Hidden) -->
+    <div id="patientDashboard" class="hidden">
+        <div class="dashboard-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-md-3 col-lg-2 sidebar">
+                        <div class="d-flex flex-column">
+                            <div class="text-center mb-4">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=b58b57&color=fff&size=100" alt="Patient" class="rounded-circle mb-2">
+                                <h5 class="text-white" id="patientNameDisplay">John Doe</h5>
+                                <div class="patient-id-display" id="patientIdDisplay">PID: MC-12345</div>
+                            </div>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#patientOverview">
+                                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#patientAppointments">
+                                        <i class="fas fa-calendar-alt"></i> Appointments
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#patientPrescriptions">
+                                        <i class="fas fa-prescription"></i> Prescriptions
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#patientLabReports">
+                                        <i class="fas fa-file-medical"></i> Lab Reports
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#patientBilling">
+                                        <i class="fas fa-file-invoice-dollar"></i> Billing
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="logoutPatient">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="col-md-9 col-lg-10 main-content">
+                        <!-- Patient Overview -->
+                        <div id="patientOverview">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2>Patient Dashboard</h2>
+                                <button class="btn btn-primary" id="bookAppointmentBtn">
+                                    <i class="fas fa-plus me-2"></i>Book New Appointment
+                                </button>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="upcomingAppointmentsCount">3</div>
+                                        <div class="analytics-label">Upcoming Appointments</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="pastVisitsCount">7</div>
+                                        <div class="analytics-label">Past Visits</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="prescriptionsCount">5</div>
+                                        <div class="analytics-label">Prescriptions</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="labReportsCount">12</div>
+                                        <div class="analytics-label">Lab Reports</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card dashboard-card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Upcoming Appointments</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover" id="upcomingAppointmentsTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Doctor</th>
+                                                            <th>Time</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Will be populated by JavaScript -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="vip-card">
+                                        <div class="vip-badge">VIP MEMBER</div>
+                                        <h5>Premium Health Plan</h5>
+                                        <p>Enjoy priority appointments and exclusive benefits</p>
+                                        <div class="token-number">A-015</div>
+                                        <p>Your queue number for today</p>
+                                        <button class="btn btn-dark mt-2">Upgrade Plan</button>
+                                    </div>
+                                    
+                                    <div class="card dashboard-card mt-4">
+                                        <div class="card-header bg-secondary text-white">
+                                            <h5 class="mb-0">Recent Lab Results</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group" id="recentLabResultsList">
+                                                <!-- Will be populated by JavaScript -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Patient Appointments -->
+                        <div id="patientAppointments" class="hidden">
+                            <h2 class="mb-4">My Appointments</h2>
+                            <div class="card dashboard-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Appointment History</h5>
+                                    <button class="btn btn-light btn-sm" id="newAppointmentBtn">
+                                        <i class="fas fa-plus me-1"></i> New Appointment
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="appointmentsHistoryTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Appointment ID</th>
+                                                    <th>Date</th>
+                                                    <th>Doctor</th>
+                                                    <th>Department</th>
+                                                    <th>Time</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Patient Prescriptions -->
+                        <div id="patientPrescriptions" class="hidden">
+                            <h2 class="mb-4">My Prescriptions</h2>
+                            <div class="row" id="prescriptionsContainer">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Patient Lab Reports -->
+                        <div id="patientLabReports" class="hidden">
+                            <h2 class="mb-4">My Lab Reports</h2>
+                            <div class="row" id="labReportsContainer">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Dashboard (Initially Hidden) -->
+    <div id="doctorDashboard" class="hidden">
+        <div class="dashboard-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-md-3 col-lg-2 sidebar">
+                        <div class="d-flex flex-column">
+                            <div class="text-center mb-4">
+                                <img src="https://ui-avatars.com/api/?name=Dr.+Sarah+Wilson&background=b58b57&color=fff&size=100" alt="Doctor" class="rounded-circle mb-2">
+                                <h5 class="text-white" id="doctorNameDisplay">Dr. Sarah Wilson</h5>
+                                <div class="patient-id-display" id="doctorIdDisplay">ID: DOC-1001</div>
+                            </div>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#doctorOverview">
+                                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#doctorAppointments">
+                                        <i class="fas fa-calendar-alt"></i> Appointments
+                                        <span class="notification-badge" id="doctorAppointmentsBadge">5</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#doctorPatients">
+                                        <i class="fas fa-user-injured"></i> Patients
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#doctorPrescriptions">
+                                        <i class="fas fa-prescription"></i> Prescriptions
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="logoutDoctor">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="col-md-9 col-lg-10 main-content">
+                        <!-- Doctor Overview -->
+                        <div id="doctorOverview">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2>Doctor Dashboard</h2>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary" id="startVideoCallBtn">
+                                        <i class="fas fa-video me-2"></i>Start Video Call
+                                    </button>
+                                    <button class="btn btn-secondary" id="addPrescriptionBtn">
+                                        <i class="fas fa-plus me-2"></i>Add Prescription
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="todaysAppointmentsCount">8</div>
+                                        <div class="analytics-label">Today's Appointments</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="waitingPatientsCount">3</div>
+                                        <div class="analytics-label">Waiting Patients</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="totalPatientsCount">127</div>
+                                        <div class="analytics-label">Total Patients</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value" id="prescriptionsWrittenCount">89</div>
+                                        <div class="analytics-label">Prescriptions Written</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card dashboard-card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Today's Schedule</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover" id="doctorScheduleTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Time</th>
+                                                            <th>Patient</th>
+                                                            <th>Contact</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Will be populated by JavaScript -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="card dashboard-card">
+                                        <div class="card-header bg-secondary text-white">
+                                            <h5 class="mb-0">Quick Actions</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-grid gap-2">
+                                                <button class="btn btn-outline-primary text-start">
+                                                    <i class="fas fa-search me-2"></i> Search Patient
+                                                </button>
+                                                <button class="btn btn-outline-secondary text-start">
+                                                    <i class="fas fa-file-medical me-2"></i> View Lab Reports
+                                                </button>
+                                                <button class="btn btn-outline-primary text-start">
+                                                    <i class="fas fa-history me-2"></i> Patient History
+                                                </button>
+                                                <button class="btn btn-outline-secondary text-start">
+                                                    <i class="fas fa-calendar-plus me-2"></i> Add Availability
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card dashboard-card mt-4">
+                                        <div class="card-header bg-secondary text-white">
+                                            <h5 class="mb-0">Recent Activity</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group">
+                                                <div class="list-group-item border-0 px-0 py-2">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Appointment Completed</h6>
+                                                        <small>10:30 AM</small>
+                                                    </div>
+                                                    <p class="mb-1">John Doe - Routine Checkup</p>
+                                                </div>
+                                                <div class="list-group-item border-0 px-0 py-2">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Prescription Sent</h6>
+                                                        <small>09:45 AM</small>
+                                                    </div>
+                                                    <p class="mb-1">Jane Smith - Medication</p>
+                                                </div>
+                                                <div class="list-group-item border-0 px-0 py-2">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Lab Report Reviewed</h6>
+                                                        <small>Yesterday</small>
+                                                    </div>
+                                                    <p class="mb-1">Robert Johnson - Blood Test</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Doctor Appointments -->
+                        <div id="doctorAppointments" class="hidden">
+                            <h2 class="mb-4">My Appointments</h2>
+                            <div class="card dashboard-card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Appointment Management</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="doctorAppointmentsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Appointment ID</th>
+                                                    <th>Date</th>
+                                                    <th>Patient</th>
+                                                    <th>Time</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Doctor Patients -->
+                        <div id="doctorPatients" class="hidden">
+                            <h2 class="mb-4">My Patients</h2>
+                            <div class="card dashboard-card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Patient List</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="doctorPatientsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Patient ID</th>
+                                                    <th>Name</th>
+                                                    <th>Contact</th>
+                                                    <th>Last Visit</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Will be populated by JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lab Dashboard (Initially Hidden) -->
+    <div id="labDashboard" class="hidden">
+        <div class="dashboard-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-md-3 col-lg-2 sidebar">
+                        <div class="d-flex flex-column">
+                            <div class="text-center mb-4">
+                                <img src="https://ui-avatars.com/api/?name=Lab+Technician&background=b58b57&color=fff&size=100" alt="Lab Technician" class="rounded-circle mb-2">
+                                <h5 class="text-white">Lab Technician</h5>
+                                <div class="patient-id-display">ID: LAB-2001</div>
+                            </div>
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#labOverview">
+                                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#labTests">
+                                        <i class="fas fa-vial"></i> Test Management
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#labReports">
+                                        <i class="fas fa-file-medical"></i> Reports
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="logoutLab">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="col-md-9 col-lg-10 main-content">
+                        <!-- Lab Overview -->
+                        <div id="labOverview">
+                            <h2 class="mb-4">Lab Dashboard</h2>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value">15</div>
+                                        <div class="analytics-label">Tests Today</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value">8</div>
+                                        <div class="analytics-label">Pending Results</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value">127</div>
+                                        <div class="analytics-label">Total Tests This Month</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="analytics-card">
+                                        <div class="analytics-value">94%</div>
+                                        <div class="analytics-label">Accuracy Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="card dashboard-card">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0">Recent Tests</h5>
+                                            <button class="btn btn-light btn-sm" id="addLabTestBtn">
+                                                <i class="fas fa-plus me-1"></i> Add New Test
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Test ID</th>
+                                                            <th>Patient</th>
+                                                            <th>Test Type</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>LT-07891</td>
+                                                            <td>John Doe (MC-12345)</td>
+                                                            <td>Blood Test</td>
+                                                            <td>12 Oct 2023</td>
+                                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>LT-07845</td>
+                                                            <td>Jane Smith (MC-12346)</td>
+                                                            <td>Urine Analysis</td>
+                                                            <td>11 Oct 2023</td>
+                                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>LT-07832</td>
+                                                            <td>Robert Brown (MC-12347)</td>
+                                                            <td>COVID-19 Test</td>
+                                                            <td>11 Oct 2023</td>
+                                                            <td><span class="status-badge status-pending">Pending</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-secondary">Process</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="card dashboard-card">
+                                        <div class="card-header bg-secondary text-white">
+                                            <h5 class="mb-0">Quick Actions</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-grid gap-2">
+                                                <button class="btn btn-outline-primary text-start">
+                                                    <i class="fas fa-search me-2"></i> Search Patient
+                                                </button>
+                                                <button class="btn btn-outline-secondary text-start">
+                                                    <i class="fas fa-vial me-2"></i> New Test Entry
+                                                </button>
+                                                <button class="btn btn-outline-primary text-start">
+                                                    <i class="fas fa-upload me-2"></i> Upload Report
+                                                </button>
+                                                <button class="btn btn-outline-secondary text-start">
+                                                    <i class="fas fa-chart-bar me-2"></i> Generate Stats
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card dashboard-card mt-4">
+                                        <div class="card-header bg-secondary text-white">
+                                            <h5 class="mb-0">Test Statistics</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <h6>Blood Tests</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" style="width: 45%">45%</div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Urine Tests</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" style="width: 30%">30%</div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>COVID Tests</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" style="width: 15%">15%</div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Other Tests</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar" style="width: 10%">10%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">User Type</label>
+                            <select class="form-select" id="userType">
+                                <option value="patient" selected>Patient</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="lab">Lab Technician</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">User ID</label>
+                            <input type="text" class="form-control" id="loginUserId" placeholder="Enter your Patient ID or Username">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-decoration-none">Forgot your password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="registerTabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#patientTab">Patient</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#doctorTab">Doctor</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content p-3">
+                        <!-- Patient Registration -->
+                        <div class="tab-pane fade show active" id="patientTab">
+                            <form id="patientRegistrationForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="patientName" placeholder="Enter your full name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" id="patientDob" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Identification Type</label>
+                                        <select class="form-select" id="patientIdType" required>
+                                            <option value="" selected disabled>Select ID Type</option>
+                                            <option value="nid">National ID Card</option>
+                                            <option value="passport">Passport</option>
+                                            <option value="drivers">Driver's License</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Identification Number</label>
+                                        <input type="text" class="form-control" id="patientIdNumber" placeholder="Enter your ID number" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="patientPhone" placeholder="Enter your phone number" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="patientEmail" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Create Password</label>
+                                        <input type="password" class="form-control" id="patientPassword" placeholder="Create a password" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="patientConfirmPassword" placeholder="Confirm your password" required>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Register as Patient</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Doctor Registration -->
+                        <div class="tab-pane fade" id="doctorTab">
+                            <form id="doctorRegistrationForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="doctorName" placeholder="Enter your full name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Medical License Number</label>
+                                        <input type="text" class="form-control" id="doctorLicense" placeholder="Enter license number" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Specialization</label>
+                                        <select class="form-select" id="doctorSpecialization" required>
+                                            <option value="" selected disabled>Select your specialty</option>
+                                            <option value="cardiology">Cardiology</option>
+                                            <option value="neurology">Neurology</option>
+                                            <option value="pediatrics">Pediatrics</option>
+                                            <option value="orthopedics">Orthopedics</option>
+                                            <option value="dermatology">Dermatology</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Years of Experience</label>
+                                        <input type="number" class="form-control" id="doctorExperience" placeholder="Enter years of experience" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="doctorPhone" placeholder="Enter your phone number" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="doctorEmail" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Create Password</label>
+                                        <input type="password" class="form-control" id="doctorPassword" placeholder="Create a password" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="doctorConfirmPassword" placeholder="Confirm your password" required>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Register as Doctor</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Booking Modal -->
+    <div class="modal fade" id="doctorBookingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Book Doctor Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="bookingStep1" class="booking-step active">
+                        <h5 class="mb-3">Step 1: Select Department</h5>
+                        <div class="mb-4">
+                            <label class="form-label">Choose Medical Department</label>
+                            <select class="form-select" id="departmentSelect">
+                                <option value="" selected disabled>Select a department</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="neurology">Neurology</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="orthopedics">Orthopedics</option>
+                                <option value="dermatology">Dermatology</option>
+                                <option value="general">General Medicine</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary" id="nextToStep2">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div id="bookingStep2" class="booking-step">
+                        <h5 class="mb-3">Step 2: Select Doctor</h5>
+                        <div id="doctorsList">
+                            <!-- Doctors will be populated here based on department -->
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-secondary" id="backToStep1">Back</button>
+                            <button class="btn btn-primary" id="nextToStep3">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div id="bookingStep3" class="booking-step">
+                        <h5 class="mb-3">Step 3: Select Date & Time</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Select Date</label>
+                                <input type="date" class="form-control" id="appointmentDate">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Available Time Slots</label>
+                                <div id="timeSlotsContainer">
+                                    <!-- Time slots will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-secondary" id="backToStep2">Back</button>
+                            <button class="btn btn-primary" id="nextToStep4">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div id="bookingStep4" class="booking-step">
+                        <h5 class="mb-3">Step 4: Confirm Appointment</h5>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h6>Appointment Details</h6>
+                                <p><strong>Department:</strong> <span id="confirmDepartment">-</span></p>
+                                <p><strong>Doctor:</strong> <span id="confirmDoctor">-</span></p>
+                                <p><strong>Date:</strong> <span id="confirmDate">-</span></p>
+                                <p><strong>Time:</strong> <span id="confirmTime">-</span></p>
+                                <p><strong>Fee:</strong> $<span id="confirmFee">-</span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-secondary" id="backToStep3">Back</button>
+                            <button class="btn btn-primary" id="proceedToPayment">Proceed to Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <h6>Appointment Summary</h6>
+                        <p><strong>Doctor:</strong> <span id="paymentDoctor">-</span></p>
+                        <p><strong>Date & Time:</strong> <span id="paymentDateTime">-</span></p>
+                        <p><strong>Fee:</strong> $<span id="paymentFee">-</span></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6>Select Payment Method</h6>
+                        <div class="payment-option selected" data-method="card">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cardPayment" checked>
+                                <label class="form-check-label" for="cardPayment">
+                                    <i class="fas fa-credit-card me-2"></i> Credit/Debit Card
+                                </label>
+                            </div>
+                        </div>
+                        <div class="payment-option" data-method="mobile">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="mobilePayment">
+                                <label class="form-check-label" for="mobilePayment">
+                                    <i class="fas fa-mobile-alt me-2"></i> Mobile Banking
+                                </label>
+                            </div>
+                        </div>
+                        <div class="payment-option" data-method="cash">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cashPayment">
+                                <label class="form-check-label" for="cashPayment">
+                                    <i class="fas fa-money-bill-wave me-2"></i> Cash on Arrival
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="cardPaymentDetails">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label">Expiry Date</label>
+                                <input type="text" class="form-control" placeholder="MM/YY">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-control" placeholder="123">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-control" placeholder="John Doe">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button class="btn btn-success btn-lg" id="confirmPaymentBtn">
+                            <i class="fas fa-lock me-2"></i> Pay Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div class="modal fade" id="paymentSuccessModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="mb-3">Payment Successful!</h4>
+                    <p class="mb-3">Your appointment has been confirmed.</p>
+                    <p><strong>Appointment ID:</strong> <span id="successAppointmentId">APT-00123</span></p>
+                    <p><strong>Date & Time:</strong> <span id="successDateTime">15 Oct 2023, 10:00 AM</span></p>
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        A confirmation message has been sent to your WhatsApp and email.
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-primary" id="downloadReceiptBtn">
+                            <i class="fas fa-download me-2"></i> Download Receipt
+                        </button>
+                        <button class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5><i class="fas fa-hospital-alt me-2"></i>ZenLife Pro</h5>
+                    <p>Advanced hospital management system for modern healthcare facilities.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Home</a></li>
+                        <li><a href="#features" class="text-light">Features</a></li>
+                        <li><a href="#premium" class="text-light">Premium</a></li>
+                        <li><a href="#" class="text-light">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> NewTown, KolKata</li>
+                        <li><i class="fas fa-phone me-2"></i>+91 9733449923</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@zenlife.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center py-3">
+                <p class="mb-0">&copy; 2023 ZenLife Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // The JavaScript code from the previous implementation remains the same
+        // Only the CSS has been updated with the new color scheme
+        // The functionality is identical to the previous version
+        
+        // Demo data for the system
+        const demoData = {
+            patients: [
+                {
+                    id: "MC-12345",
+                    name: "John Doe",
+                    email: "john.doe@example.com",
+                    phone: "+1 (555) 123-4567",
+                    dob: "1985-05-15",
+                    idType: "nid",
+                    idNumber: "NID123456789",
+                    password: "password123"
+                }
+            ],
+            doctors: [
+                {
+                    id: "DOC-1001",
+                    name: "Dr. Sarah Wilson",
+                    specialization: "Cardiology",
+                    department: "cardiology",
+                    email: "s.wilson@medicarepro.com",
+                    phone: "+1 (555) 987-6543",
+                    license: "MD123456",
+                    experience: 12,
+                    fee: 150,
+                    password: "doctor123",
+                    availability: {
+                        "2023-10-15": ["09:00", "10:00", "11:00", "14:00", "15:00"],
+                        "2023-10-16": ["10:00", "11:00", "14:00", "15:00", "16:00"],
+                        "2023-10-17": ["09:00", "10:00", "11:00", "14:00", "15:00"]
+                    }
+                },
+                {
+                    id: "DOC-1002",
+                    name: "Dr. Michael Brown",
+                    specialization: "Neurology",
+                    department: "neurology",
+                    email: "m.brown@medicarepro.com",
+                    phone: "+1 (555) 456-7890",
+                    license: "MD654321",
+                    experience: 8,
+                    fee: 120,
+                    password: "doctor123",
+                    availability: {
+                        "2023-10-15": ["10:00", "11:00", "14:00", "15:00"],
+                        "2023-10-16": ["09:00", "10:00", "14:00", "15:00"],
+                        "2023-10-17": ["10:00", "11:00", "14:00", "15:00", "16:00"]
+                    }
+                },
+                {
+                    id: "DOC-1003",
+                    name: "Dr. Jennifer Lee",
+                    specialization: "Dermatology",
+                    department: "dermatology",
+                    email: "j.lee@medicarepro.com",
+                    phone: "+1 (555) 789-0123",
+                    license: "MD789012",
+                    experience: 10,
+                    fee: 100,
+                    password: "doctor123",
+                    availability: {
+                        "2023-10-15": ["09:00", "10:00", "11:00"],
+                        "2023-10-16": ["14:00", "15:00", "16:00"],
+                        "2023-10-17": ["09:00", "10:00", "11:00", "14:00", "15:00"]
+                    }
+                }
+            ],
+            appointments: [
+                {
+                    id: "APT-00123",
+                    patientId: "MC-12345",
+                    doctorId: "DOC-1001",
+                    date: "2023-10-15",
+                    time: "10:00",
+                    status: "confirmed",
+                    department: "Cardiology",
+                    fee: 150,
+                    paymentStatus: "paid"
+                },
+                {
+                    id: "APT-00119",
+                    patientId: "MC-12345",
+                    doctorId: "DOC-1002",
+                    date: "2023-10-10",
+                    time: "14:30",
+                    status: "completed",
+                    department: "Neurology",
+                    fee: 120,
+                    paymentStatus: "paid"
+                }
+            ],
+            prescriptions: [
+                {
+                    id: "PR-04561",
+                    patientId: "MC-12345",
+                    doctorId: "DOC-1002",
+                    date: "2023-10-10",
+                    diagnosis: "Migraine Headaches",
+                    medications: [
+                        { name: "Sumatriptan", dosage: "50mg", frequency: "As needed" },
+                        { name: "Ibuprofen", dosage: "400mg", frequency: "Every 6 hours" }
+                    ]
+                },
+                {
+                    id: "PR-04218",
+                    patientId: "MC-12345",
+                    doctorId: "DOC-1003",
+                    date: "2023-10-05",
+                    diagnosis: "Skin Allergy",
+                    medications: [
+                        { name: "Cetirizine", dosage: "10mg", frequency: "Once daily" },
+                        { name: "Hydrocortisone cream", dosage: "1%", frequency: "Apply twice daily" }
+                    ]
+                }
+            ],
+            labReports: [
+                {
+                    id: "LB-07891",
+                    patientId: "MC-12345",
+                    testName: "Complete Blood Count (CBC)",
+                    testDate: "2023-10-12",
+                    lab: "Central Diagnostic Lab",
+                    status: "completed",
+                    results: {
+                        hemoglobin: "14.2 g/dL",
+                        wbc: "7,500/μL",
+                        platelets: "250,000/μL"
+                    }
+                },
+                {
+                    id: "LB-07845",
+                    patientId: "MC-12345",
+                    testName: "Routine Urine Examination",
+                    testDate: "2023-10-05",
+                    lab: "Central Diagnostic Lab",
+                    status: "completed",
+                    results: {
+                        color: "Yellow",
+                        appearance: "Clear",
+                        ph: "6.0"
+                    }
+                }
+            ]
+        };
+
+        // DOM Elements
+        const mainContent = document.getElementById('mainContent');
+        const patientDashboard = document.getElementById('patientDashboard');
+        const doctorDashboard = document.getElementById('doctorDashboard');
+        const labDashboard = document.getElementById('labDashboard');
+        const loginNavLink = document.getElementById('loginNavLink');
+        const registerNavLink = document.getElementById('registerNavLink');
+        const registerHeroLink = document.getElementById('registerHeroLink');
+        const homeLink = document.getElementById('homeLink');
+        const logoutPatient = document.getElementById('logoutPatient');
+        const logoutDoctor = document.getElementById('logoutDoctor');
+        const logoutLab = document.getElementById('logoutLab');
+        const loginForm = document.getElementById('loginForm');
+        const patientRegistrationForm = document.getElementById('patientRegistrationForm');
+        const bookAppointmentBtn = document.getElementById('bookAppointmentBtn');
+        const newAppointmentBtn = document.getElementById('newAppointmentBtn');
+        const startVideoCallBtn = document.getElementById('startVideoCallBtn');
+        const addPrescriptionBtn = document.getElementById('addPrescriptionBtn');
+        const addLabTestBtn = document.getElementById('addLabTestBtn');
+
+        // Feature cards
+        const patientRegistrationFeature = document.getElementById('patientRegistrationFeature');
+        const doctorBookingFeature = document.getElementById('doctorBookingFeature');
+        const paymentFeature = document.getElementById('paymentFeature');
+        const patientDashboardFeature = document.getElementById('patientDashboardFeature');
+        const doctorDashboardFeature = document.getElementById('doctorDashboardFeature');
+        const labIntegrationFeature = document.getElementById('labIntegrationFeature');
+
+        // Modal instances
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+        const doctorBookingModal = new bootstrap.Modal(document.getElementById('doctorBookingModal'));
+        const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        const paymentSuccessModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+
+        // Booking process variables
+        let selectedDepartment = '';
+        let selectedDoctor = null;
+        let selectedDate = '';
+        let selectedTime = '';
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in (from localStorage)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                if (currentUser.type === 'patient') {
+                    showPatientDashboard(currentUser);
+                } else if (currentUser.type === 'doctor') {
+                    showDoctorDashboard(currentUser);
+                } else if (currentUser.type === 'lab') {
+                    showLabDashboard(currentUser);
+                }
+            }
+
+            // Home link
+            homeLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showMainContent();
+            });
+
+            // Login link events
+            loginNavLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.show();
+            });
+
+            // Register link events
+            registerNavLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.show();
+            });
+
+            registerHeroLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.show();
+            });
+
+            // Feature cards events
+            patientRegistrationFeature.addEventListener('click', function() {
+                registerModal.show();
+            });
+
+            doctorBookingFeature.addEventListener('click', function() {
+                // If user is logged in as patient, show booking modal
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.type === 'patient') {
+                    doctorBookingModal.show();
+                    resetBookingProcess();
+                } else {
+                    // If not logged in, show login modal first
+                    loginModal.show();
+                    // Set a flag to open booking modal after login
+                    localStorage.setItem('redirectToBooking', 'true');
+                }
+            });
+
+            paymentFeature.addEventListener('click', function() {
+                alert('Payment feature would be integrated with the booking process. Book an appointment to see payment in action.');
+            });
+
+            patientDashboardFeature.addEventListener('click', function() {
+                // If user is logged in as patient, show dashboard
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.type === 'patient') {
+                    showPatientDashboard(currentUser);
+                } else {
+                    // If not logged in, show login modal first
+                    loginModal.show();
+                    // Set user type to patient
+                    document.getElementById('userType').value = 'patient';
+                }
+            });
+
+            doctorDashboardFeature.addEventListener('click', function() {
+                // If user is logged in as doctor, show dashboard
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.type === 'doctor') {
+                    showDoctorDashboard(currentUser);
+                } else {
+                    // If not logged in, show login modal first
+                    loginModal.show();
+                    // Set user type to doctor
+                    document.getElementById('userType').value = 'doctor';
+                    // Provide demo credentials
+                    document.getElementById('loginUserId').value = 'DOC-1001';
+                    document.getElementById('loginPassword').value = 'doctor123';
+                }
+            });
+
+            labIntegrationFeature.addEventListener('click', function() {
+                // If user is logged in as lab, show dashboard
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && currentUser.type === 'lab') {
+                    showLabDashboard(currentUser);
+                } else {
+                    // If not logged in, show login modal first
+                    loginModal.show();
+                    // Set user type to lab
+                    document.getElementById('userType').value = 'lab';
+                    // Provide demo credentials
+                    document.getElementById('loginUserId').value = 'LAB-2001';
+                    document.getElementById('loginPassword').value = 'lab123';
+                }
+            });
+
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const userType = document.getElementById('userType').value;
+                const userId = document.getElementById('loginUserId').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simple authentication (in a real app, this would be server-side)
+                if (userType === 'patient') {
+                    const patient = demoData.patients.find(p => p.id === userId && p.password === password);
+                    if (patient) {
+                        const userData = { ...patient, type: 'patient' };
+                        localStorage.setItem('currentUser', JSON.stringify(userData));
+                        
+                        // Check if we need to redirect to booking
+                        const redirectToBooking = localStorage.getItem('redirectToBooking');
+                        if (redirectToBooking === 'true') {
+                            localStorage.removeItem('redirectToBooking');
+                            loginModal.hide();
+                            doctorBookingModal.show();
+                            resetBookingProcess();
+                        } else {
+                            showPatientDashboard(userData);
+                            loginModal.hide();
+                        }
+                    } else {
+                        alert('Invalid Patient ID or password. Try: MC-12345 / password123');
+                    }
+                } else if (userType === 'doctor') {
+                    const doctor = demoData.doctors.find(d => d.id === userId && d.password === password);
+                    if (doctor) {
+                        const userData = { ...doctor, type: 'doctor' };
+                        localStorage.setItem('currentUser', JSON.stringify(userData));
+                        showDoctorDashboard(userData);
+                        loginModal.hide();
+                    } else {
+                        alert('Invalid Doctor ID or password. Try: DOC-1001 / doctor123');
+                    }
+                } else if (userType === 'lab') {
+                    // For demo, any lab credentials will work
+                    if (userId && password) {
+                        const userData = { 
+                            id: userId, 
+                            name: 'Lab Technician', 
+                            type: 'lab' 
+                        };
+                        localStorage.setItem('currentUser', JSON.stringify(userData));
+                        showLabDashboard(userData);
+                        loginModal.hide();
+                    } else {
+                        alert('Please enter lab credentials');
+                    }
+                } else {
+                    alert('Login functionality for this user type is not implemented in this demo.');
+                }
+            });
+
+            // Patient registration form submission
+            patientRegistrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('patientName').value;
+                const dob = document.getElementById('patientDob').value;
+                const idType = document.getElementById('patientIdType').value;
+                const idNumber = document.getElementById('patientIdNumber').value;
+                const phone = document.getElementById('patientPhone').value;
+                const email = document.getElementById('patientEmail').value;
+                const password = document.getElementById('patientPassword').value;
+                const confirmPassword = document.getElementById('patientConfirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                // Generate a patient ID
+                const patientId = 'MC-' + Math.floor(10000 + Math.random() * 90000);
+                
+                // Create new patient object
+                const newPatient = {
+                    id: patientId,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    dob: dob,
+                    idType: idType,
+                    idNumber: idNumber,
+                    password: password
+                };
+                
+                // In a real app, this would be sent to the server
+                demoData.patients.push(newPatient);
+                
+                alert(`Registration successful! Your Patient ID is: ${patientId}. Please use this ID to login.`);
+                registerModal.hide();
+                
+                // Auto-fill login form
+                document.getElementById('loginUserId').value = patientId;
+                document.getElementById('loginPassword').value = password;
+                loginModal.show();
+            });
+
+            // Doctor registration form submission
+            document.getElementById('doctorRegistrationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Doctor registration would be processed in a real application. This is a demo.');
+                registerModal.hide();
+            });
+
+            // Logout functionality
+            logoutPatient.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                patientDashboard.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            });
+
+            logoutDoctor.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                doctorDashboard.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            });
+
+            logoutLab.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                labDashboard.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            });
+
+            // Book appointment buttons
+            if (bookAppointmentBtn) {
+                bookAppointmentBtn.addEventListener('click', function() {
+                    doctorBookingModal.show();
+                    resetBookingProcess();
+                });
+            }
+
+            if (newAppointmentBtn) {
+                newAppointmentBtn.addEventListener('click', function() {
+                    doctorBookingModal.show();
+                    resetBookingProcess();
+                });
+            }
+
+            // Doctor dashboard buttons
+            if (startVideoCallBtn) {
+                startVideoCallBtn.addEventListener('click', function() {
+                    alert('Video call functionality would open here. This is a premium feature.');
+                });
+            }
+
+            if (addPrescriptionBtn) {
+                addPrescriptionBtn.addEventListener('click', function() {
+                    alert('Add prescription functionality would open here.');
+                });
+            }
+
+            // Lab dashboard buttons
+            if (addLabTestBtn) {
+                addLabTestBtn.addEventListener('click', function() {
+                    alert('Add lab test functionality would open here.');
+                });
+            }
+
+            // Patient dashboard navigation
+            const patientNavLinks = document.querySelectorAll('#patientDashboard .sidebar .nav-link');
+            const patientSections = document.querySelectorAll('#patientDashboard .main-content > div');
+            
+            patientNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Update active nav link
+                    patientNavLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target section
+                    patientSections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    document.getElementById(targetId).classList.remove('hidden');
+                    
+                    // If navigating to appointments, refresh the table
+                    if (targetId === 'patientAppointments') {
+                        populateAppointmentsTable();
+                    }
+                });
+            });
+
+            // Doctor dashboard navigation
+            const doctorNavLinks = document.querySelectorAll('#doctorDashboard .sidebar .nav-link');
+            const doctorSections = document.querySelectorAll('#doctorDashboard .main-content > div');
+            
+            doctorNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Update active nav link
+                    doctorNavLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target section
+                    doctorSections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    document.getElementById(targetId).classList.remove('hidden');
+                    
+                    // If navigating to appointments, refresh the table
+                    if (targetId === 'doctorAppointments') {
+                        populateDoctorAppointmentsTable();
+                    } else if (targetId === 'doctorPatients') {
+                        populateDoctorPatientsTable();
+                    }
+                });
+            });
+
+            // Lab dashboard navigation
+            const labNavLinks = document.querySelectorAll('#labDashboard .sidebar .nav-link');
+            const labSections = document.querySelectorAll('#labDashboard .main-content > div');
+            
+            labNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Update active nav link
+                    labNavLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target section
+                    labSections.forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    document.getElementById(targetId).classList.remove('hidden');
+                });
+            });
+
+            // Booking process event listeners
+            document.getElementById('departmentSelect').addEventListener('change', function() {
+                selectedDepartment = this.value;
+            });
+
+            document.getElementById('nextToStep2').addEventListener('click', function() {
+                if (!selectedDepartment) {
+                    alert('Please select a department');
+                    return;
+                }
+                showBookingStep(2);
+                populateDoctorsList();
+            });
+
+            document.getElementById('backToStep1').addEventListener('click', function() {
+                showBookingStep(1);
+            });
+
+            document.getElementById('nextToStep3').addEventListener('click', function() {
+                if (!selectedDoctor) {
+                    alert('Please select a doctor');
+                    return;
+                }
+                showBookingStep(3);
+                populateTimeSlots();
+            });
+
+            document.getElementById('backToStep2').addEventListener('click', function() {
+                showBookingStep(2);
+            });
+
+            document.getElementById('nextToStep4').addEventListener('click', function() {
+                if (!selectedDate || !selectedTime) {
+                    alert('Please select date and time');
+                    return;
+                }
+                showBookingStep(4);
+                updateConfirmationDetails();
+            });
+
+            document.getElementById('backToStep3').addEventListener('click', function() {
+                showBookingStep(3);
+            });
+
+            document.getElementById('proceedToPayment').addEventListener('click', function() {
+                doctorBookingModal.hide();
+                paymentModal.show();
+                updatePaymentDetails();
+            });
+
+            // Payment process event listeners
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    const method = this.getAttribute('data-method');
+                    document.querySelector(`#${method}Payment`).checked = true;
+                    
+                    // Show/hide card details based on selection
+                    if (method === 'card') {
+                        document.getElementById('cardPaymentDetails').style.display = 'block';
+                    } else {
+                        document.getElementById('cardPaymentDetails').style.display = 'none';
+                    }
+                });
+            });
+
+            document.getElementById('confirmPaymentBtn').addEventListener('click', function() {
+                // In a real app, this would process the payment
+                paymentModal.hide();
+                paymentSuccessModal.show();
+                
+                // Create a new appointment
+                createNewAppointment();
+            });
+
+            document.getElementById('downloadReceiptBtn').addEventListener('click', function() {
+                alert('Receipt download would start here. In a real app, this would generate a PDF.');
+            });
+
+            // Initialize the system
+            initializeSystem();
+        });
+
+        // Function to show main content
+        function showMainContent() {
+            patientDashboard.classList.add('hidden');
+            doctorDashboard.classList.add('hidden');
+            labDashboard.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+        }
+
+        // Function to show patient dashboard
+        function showPatientDashboard(patient) {
+            mainContent.classList.add('hidden');
+            patientDashboard.classList.remove('hidden');
+            doctorDashboard.classList.add('hidden');
+            labDashboard.classList.add('hidden');
+            
+            // Update patient info in dashboard
+            document.getElementById('patientNameDisplay').textContent = patient.name;
+            document.getElementById('patientIdDisplay').textContent = `PID: ${patient.id}`;
+            document.querySelector('#patientDashboard .sidebar img').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(patient.name)}&background=b58b57&color=fff&size=100`;
+            
+            // Populate dashboard data
+            populatePatientDashboard(patient);
+        }
+
+        // Function to show doctor dashboard
+        function showDoctorDashboard(doctor) {
+            mainContent.classList.add('hidden');
+            patientDashboard.classList.add('hidden');
+            doctorDashboard.classList.remove('hidden');
+            labDashboard.classList.add('hidden');
+            
+            // Update doctor info in dashboard
+            document.getElementById('doctorNameDisplay').textContent = doctor.name;
+            document.getElementById('doctorIdDisplay').textContent = `ID: ${doctor.id}`;
+            document.querySelector('#doctorDashboard .sidebar img').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(doctor.name)}&background=b58b57&color=fff&size=100`;
+            
+            // Populate dashboard data
+            populateDoctorDashboard(doctor);
+        }
+
+        // Function to show lab dashboard
+        function showLabDashboard(lab) {
+            mainContent.classList.add('hidden');
+            patientDashboard.classList.add('hidden');
+            doctorDashboard.classList.add('hidden');
+            labDashboard.classList.remove('hidden');
+            
+            // Populate dashboard data
+            populateLabDashboard(lab);
+        }
+
+        // Function to initialize the system
+        function initializeSystem() {
+            // Any initialization code would go here
+            console.log('System initialized');
+        }
+
+        // Function to populate patient dashboard
+        function populatePatientDashboard(patient) {
+            // Get patient-specific data
+            const patientAppointments = demoData.appointments.filter(a => a.patientId === patient.id);
+            const patientPrescriptions = demoData.prescriptions.filter(p => p.patientId === patient.id);
+            const patientLabReports = demoData.labReports.filter(l => l.patientId === patient.id);
+            
+            // Update counts
+            document.getElementById('upcomingAppointmentsCount').textContent = 
+                patientAppointments.filter(a => a.status === 'confirmed' || a.status === 'pending').length;
+            document.getElementById('pastVisitsCount').textContent = 
+                patientAppointments.filter(a => a.status === 'completed').length;
+            document.getElementById('prescriptionsCount').textContent = patientPrescriptions.length;
+            document.getElementById('labReportsCount').textContent = patientLabReports.length;
+            
+            // Populate upcoming appointments table
+            const upcomingAppointmentsTable = document.getElementById('upcomingAppointmentsTable').getElementsByTagName('tbody')[0];
+            upcomingAppointmentsTable.innerHTML = '';
+            
+            patientAppointments
+                .filter(a => a.status === 'confirmed' || a.status === 'pending')
+                .forEach(appointment => {
+                    const doctor = demoData.doctors.find(d => d.id === appointment.doctorId);
+                    const row = upcomingAppointmentsTable.insertRow();
+                    row.innerHTML = `
+                        <td>${formatDate(appointment.date)}</td>
+                        <td>${doctor ? doctor.name : 'Unknown'}</td>
+                        <td>${appointment.time}</td>
+                        <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+                    `;
+                });
+            
+            // Populate recent lab results
+            const recentLabResultsList = document.getElementById('recentLabResultsList');
+            recentLabResultsList.innerHTML = '';
+            
+            patientLabReports.slice(0, 2).forEach(report => {
+                const item = document.createElement('a');
+                item.href = '#';
+                item.className = 'list-group-item list-group-item-action';
+                item.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${report.testName}</h6>
+                        <small>${formatDate(report.testDate)}</small>
+                    </div>
+                    <p class="mb-1">${report.testName}</p>
+                    <small>Status: <span class="text-success">${report.status}</span></small>
+                `;
+                recentLabResultsList.appendChild(item);
+            });
+            
+            // Populate prescriptions container
+            const prescriptionsContainer = document.getElementById('prescriptionsContainer');
+            prescriptionsContainer.innerHTML = '';
+            
+            patientPrescriptions.forEach(prescription => {
+                const doctor = demoData.doctors.find(d => d.id === prescription.doctorId);
+                const col = document.createElement('div');
+                col.className = 'col-md-6 mb-4';
+                col.innerHTML = `
+                    <div class="card document-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Prescription #${prescription.id}</h5>
+                            <p class="card-text"><strong>Doctor:</strong> ${doctor ? doctor.name : 'Unknown'}</p>
+                            <p class="card-text"><strong>Date:</strong> ${formatDate(prescription.date)}</p>
+                            <p class="card-text"><strong>Diagnosis:</strong> ${prescription.diagnosis}</p>
+                            <div class="mt-3">
+                                <button class="btn btn-sm btn-primary me-2">View Details</button>
+                                <button class="btn btn-sm btn-secondary">Download PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                prescriptionsContainer.appendChild(col);
+            });
+            
+            // Populate lab reports container
+            const labReportsContainer = document.getElementById('labReportsContainer');
+            labReportsContainer.innerHTML = '';
+            
+            patientLabReports.forEach(report => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 mb-4';
+                col.innerHTML = `
+                    <div class="card document-card">
+                        <div class="card-body">
+                            <h5 class="card-title">${report.testName} #${report.id}</h5>
+                            <p class="card-text"><strong>Test Date:</strong> ${formatDate(report.testDate)}</p>
+                            <p class="card-text"><strong>Lab:</strong> ${report.lab}</p>
+                            <p class="card-text"><strong>Status:</strong> <span class="text-success">${report.status}</span></p>
+                            <div class="mt-3">
+                                <button class="btn btn-sm btn-primary me-2">View Report</button>
+                                <button class="btn btn-sm btn-secondary">Download PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                labReportsContainer.appendChild(col);
+            });
+        }
+
+        // Function to populate doctor dashboard
+        function populateDoctorDashboard(doctor) {
+            // Get doctor-specific data
+            const doctorAppointments = demoData.appointments.filter(a => a.doctorId === doctor.id);
+            const today = new Date().toISOString().split('T')[0];
+            const todaysAppointments = doctorAppointments.filter(a => a.date === today);
+            
+            // Update counts
+            document.getElementById('todaysAppointmentsCount').textContent = todaysAppointments.length;
+            document.getElementById('waitingPatientsCount').textContent = 
+                todaysAppointments.filter(a => a.status === 'confirmed').length;
+            document.getElementById('totalPatientsCount').textContent = 
+                new Set(doctorAppointments.map(a => a.patientId)).size;
+            document.getElementById('prescriptionsWrittenCount').textContent = 
+                demoData.prescriptions.filter(p => p.doctorId === doctor.id).length;
+            
+            // Update appointments badge
+            document.getElementById('doctorAppointmentsBadge').textContent = todaysAppointments.length;
+            
+            // Populate doctor schedule table
+            const doctorScheduleTable = document.getElementById('doctorScheduleTable').getElementsByTagName('tbody')[0];
+            doctorScheduleTable.innerHTML = '';
+            
+            todaysAppointments.forEach(appointment => {
+                const patient = demoData.patients.find(p => p.id === appointment.patientId);
+                const row = doctorScheduleTable.insertRow();
+                row.innerHTML = `
+                    <td>${appointment.time}</td>
+                    <td>${patient ? patient.name : 'Unknown'} (${appointment.patientId})</td>
+                    <td>${patient ? patient.phone : 'N/A'}</td>
+                    <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-primary">Start Consultation</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Function to populate lab dashboard
+        function populateLabDashboard(lab) {
+            // Lab dashboard would be populated with lab-specific data
+            // This is a simplified version for the demo
+        }
+
+        // Function to populate appointments table in patient dashboard
+        function populateAppointmentsTable() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.type !== 'patient') return;
+            
+            const appointmentsTable = document.getElementById('appointmentsHistoryTable').getElementsByTagName('tbody')[0];
+            appointmentsTable.innerHTML = '';
+            
+            const patientAppointments = demoData.appointments.filter(a => a.patientId === currentUser.id);
+            
+            patientAppointments.forEach(appointment => {
+                const doctor = demoData.doctors.find(d => d.id === appointment.doctorId);
+                const row = appointmentsTable.insertRow();
+                row.innerHTML = `
+                    <td>${appointment.id}</td>
+                    <td>${formatDate(appointment.date)}</td>
+                    <td>${doctor ? doctor.name : 'Unknown'}</td>
+                    <td>${appointment.department}</td>
+                    <td>${appointment.time}</td>
+                    <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Reschedule</button>
+                        <button class="btn btn-sm btn-outline-secondary">Cancel</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Function to populate doctor appointments table
+        function populateDoctorAppointmentsTable() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.type !== 'doctor') return;
+            
+            const appointmentsTable = document.getElementById('doctorAppointmentsTable').getElementsByTagName('tbody')[0];
+            appointmentsTable.innerHTML = '';
+            
+            const doctorAppointments = demoData.appointments.filter(a => a.doctorId === currentUser.id);
+            
+            doctorAppointments.forEach(appointment => {
+                const patient = demoData.patients.find(p => p.id === appointment.patientId);
+                const row = appointmentsTable.insertRow();
+                row.innerHTML = `
+                    <td>${appointment.id}</td>
+                    <td>${formatDate(appointment.date)}</td>
+                    <td>${patient ? patient.name : 'Unknown'} (${appointment.patientId})</td>
+                    <td>${appointment.time}</td>
+                    <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">View Details</button>
+                        <button class="btn btn-sm btn-outline-secondary">Start Consultation</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Function to populate doctor patients table
+        function populateDoctorPatientsTable() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.type !== 'doctor') return;
+            
+            const patientsTable = document.getElementById('doctorPatientsTable').getElementsByTagName('tbody')[0];
+            patientsTable.innerHTML = '';
+            
+            const doctorAppointments = demoData.appointments.filter(a => a.doctorId === currentUser.id);
+            const patientIds = [...new Set(doctorAppointments.map(a => a.patientId))];
+            
+            patientIds.forEach(patientId => {
+                const patient = demoData.patients.find(p => p.id === patientId);
+                const lastAppointment = doctorAppointments
+                    .filter(a => a.patientId === patientId)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+                
+                const row = patientsTable.insertRow();
+                row.innerHTML = `
+                    <td>${patientId}</td>
+                    <td>${patient ? patient.name : 'Unknown'}</td>
+                    <td>${patient ? patient.phone : 'N/A'}</td>
+                    <td>${lastAppointment ? formatDate(lastAppointment.date) : 'N/A'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">View History</button>
+                        <button class="btn btn-sm btn-outline-secondary">Medical Records</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Booking process functions
+        function resetBookingProcess() {
+            selectedDepartment = '';
+            selectedDoctor = null;
+            selectedDate = '';
+            selectedTime = '';
+            document.getElementById('departmentSelect').value = '';
+            showBookingStep(1);
+        }
+
+        function showBookingStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.booking-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show the selected step
+            document.getElementById(`bookingStep${step}`).classList.add('active');
+        }
+
+        function populateDoctorsList() {
+            const doctorsList = document.getElementById('doctorsList');
+            doctorsList.innerHTML = '';
+            
+            const departmentDoctors = demoData.doctors.filter(d => d.department === selectedDepartment);
+            
+            if (departmentDoctors.length === 0) {
+                doctorsList.innerHTML = '<p>No doctors available in this department.</p>';
+                return;
+            }
+            
+            departmentDoctors.forEach(doctor => {
+                const doctorCard = document.createElement('div');
+                doctorCard.className = 'doctor-card';
+                doctorCard.setAttribute('data-doctor-id', doctor.id);
+                doctorCard.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="doctorSelect" id="doctor-${doctor.id}">
+                        <label class="form-check-label w-100" for="doctor-${doctor.id}">
+                            <h6>${doctor.name}</h6>
+                            <p class="mb-1">${doctor.specialization}</p>
+                            <p class="mb-1">Experience: ${doctor.experience} years</p>
+                            <p class="mb-1">Fee: $${doctor.fee}</p>
+                        </label>
+                    </div>
+                `;
+                
+                doctorCard.addEventListener('click', function() {
+                    document.querySelectorAll('.doctor-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedDoctor = doctor;
+                });
+                
+                doctorsList.appendChild(doctorCard);
+            });
+        }
+
+        function populateTimeSlots() {
+            const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+            timeSlotsContainer.innerHTML = '';
+            
+            const dateInput = document.getElementById('appointmentDate');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            
+            dateInput.addEventListener('change', function() {
+                selectedDate = this.value;
+                updateTimeSlots();
+            });
+            
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+            dateInput.value = tomorrowFormatted;
+            selectedDate = tomorrowFormatted;
+            
+            updateTimeSlots();
+        }
+
+        function updateTimeSlots() {
+            if (!selectedDoctor || !selectedDate) return;
+            
+            const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+            timeSlotsContainer.innerHTML = '';
+            
+            const availableSlots = selectedDoctor.availability[selectedDate] || [];
+            
+            if (availableSlots.length === 0) {
+                timeSlotsContainer.innerHTML = '<p>No available slots on this date.</p>';
+                return;
+            }
+            
+            availableSlots.forEach(slot => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.textContent = slot;
+                timeSlot.setAttribute('data-time', slot);
+                
+                timeSlot.addEventListener('click', function() {
+                    document.querySelectorAll('.time-slot').forEach(s => {
+                        s.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedTime = this.getAttribute('data-time');
+                });
+                
+                timeSlotsContainer.appendChild(timeSlot);
+            });
+        }
+
+        function updateConfirmationDetails() {
+            if (!selectedDoctor || !selectedDate || !selectedTime) return;
+            
+            document.getElementById('confirmDepartment').textContent = 
+                selectedDepartment.charAt(0).toUpperCase() + selectedDepartment.slice(1);
+            document.getElementById('confirmDoctor').textContent = selectedDoctor.name;
+            document.getElementById('confirmDate').textContent = formatDate(selectedDate);
+            document.getElementById('confirmTime').textContent = selectedTime;
+            document.getElementById('confirmFee').textContent = selectedDoctor.fee;
+        }
+
+        function updatePaymentDetails() {
+            document.getElementById('paymentDoctor').textContent = selectedDoctor.name;
+            document.getElementById('paymentDateTime').textContent = `${formatDate(selectedDate)} at ${selectedTime}`;
+            document.getElementById('paymentFee').textContent = selectedDoctor.fee;
+        }
+
+        function createNewAppointment() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.type !== 'patient') return;
+            
+            // Generate appointment ID
+            const appointmentId = 'APT-' + Math.floor(100000 + Math.random() * 900000);
+            
+            // Create new appointment
+            const newAppointment = {
+                id: appointmentId,
+                patientId: currentUser.id,
+                doctorId: selectedDoctor.id,
+                date: selectedDate,
+                time: selectedTime,
+                status: 'confirmed',
+                department: selectedDepartment.charAt(0).toUpperCase() + selectedDepartment.slice(1),
+                fee: selectedDoctor.fee,
+                paymentStatus: 'paid'
+            };
+            
+            // Add to demo data
+            demoData.appointments.push(newAppointment);
+            
+            // Update success modal
+            document.getElementById('successAppointmentId').textContent = appointmentId;
+            document.getElementById('successDateTime').textContent = `${formatDate(selectedDate)} at ${selectedTime}`;
+            
+            // Refresh patient dashboard if open
+            if (!patientDashboard.classList.contains('hidden')) {
+                populatePatientDashboard(currentUser);
+            }
+        }
+
+        // Utility function to format date
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+    </script>
+</body>
+</html>
